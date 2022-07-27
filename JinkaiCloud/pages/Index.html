@@ -1,0 +1,666 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/animate/animate.min.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/css/index.css" rel="stylesheet" />
+    <style>
+        .hd-search {
+            display: block;
+            vertical-align: middle;
+            width: 100%;
+            padding: 10px 0px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+            .hd-search .hd-welcome {
+                display: block;
+                float: left;
+                width: 200px;
+                line-height: 30px;
+                padding-left: 10px;
+                font-size: 13px;
+            }
+        /* 通知中心 */
+        .metro-notification-container {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 20px;
+        }
+
+        .metro-notification-logo {
+            width: 32px;
+            cursor: pointer;
+        }
+
+        .metro-notification-count {
+            color: white;
+            font-size: 11px;
+            min-width: 20px;
+            height: 20px;
+            line-height: 20px;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            background: #E12727;
+            display: none;
+            left: 40px;
+            position: absolute;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+        /* 消息管理容器 */
+        .notification-message-container {
+            text-align: right;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999999;
+        }
+        /* 未读消息列表 */
+        .notification-message-list-container {
+            text-align: left;
+            border-bottom: 1px solid #666666;
+        }
+
+        .notification-message-operate {
+            width: 24px;
+            height: 24px;
+            margin-right: 25px;
+            margin-bottom: 3px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .notification-message-operate-icon {
+            width: 100%;
+            height: 100%;
+        }
+
+        .notification-message-operate.top {
+            bottom: 0;
+            right: 5px;
+            position: absolute;
+        }
+        /* 未读消息 */
+        .notification-message-item-container {
+            color: #FFFFFF;
+            height: 80px;
+            line-height: 80px;
+            border: 1px solid #666666;
+            border-bottom: 0;
+            /*background: url(../img/bg-nav-dir.png);*/
+            background: #363d4d;
+            position: relative;
+            display: none;
+        }
+
+            .notification-message-item-container.w {
+                color: #000000;
+                background: #FFFF66;
+                opacity: 0.9;
+            }
+
+            .notification-message-item-container.e {
+                background: #FF6666;
+                opacity: 0.9;
+            }
+        /* 应用通知图标 */
+        .notification-appsystem-icon {
+            width: 40px;
+            height: 40px;
+            margin: 20px 5px 10px 15px;
+            background-size: 100%;
+            position: absolute;
+            display: inline-block;
+        }
+        /* Sender或消息类型 */
+        .notification-sender-photo {
+            width: 38px;
+            height: 40px;
+            margin: 20px 5px;
+            background-size: 100%;
+            position: absolute;
+            left: 65px;
+            display: inline-block;
+        }
+        /* 内容 */
+        .notification-message-content-container {
+            margin: 0 330px 0 125px;
+        }
+
+        .notification-appsystem-name {
+            font-size: 16px;
+            font-weight: bold;
+            height: 38px;
+            line-height: 50px;
+        }
+
+        .notification-message-content {
+            line-height: 20px;
+        }
+        /* 操作按钮 */
+        .notification-operate-buttons {
+            text-align: right;
+            width: 220px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 110px;
+        }
+
+        .notification-operate-button {
+            padding: 5px 12px;
+            margin-right: 5px;
+            border-radius: 0;
+        }
+
+            .notification-operate-button.blue {
+                color: white;
+                background: #005CFF;
+                border: 1px solid #005CFF;
+            }
+
+            .notification-operate-button.red {
+                color: white;
+                background: red;
+                border: 1px solid red;
+            }
+
+        .notification-operate-info {
+            color: #000000;
+            max-width: 210px;
+            padding: 5px 15px;
+            border: 1px solid #F3F3F3;
+            border-radius: 5px;
+            margin-right: 5px;
+            background: #888888;
+            cursor: default;
+        }
+        /* 接收时间 */
+        .notification-datetime {
+            text-align: center;
+            width: 80px;
+            position: absolute;
+            top: 0;
+            right: 30px;
+        }
+        /* 关闭 */
+        .notification-operate-close {
+            width: 20px;
+            height: 20px;
+            background: url(../images/close.png);
+            position: absolute;
+            top: 30px;
+            right: 5px;
+            cursor: pointer;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 3px 20px 3px;
+            margin: 0 16px 0 0;
+            font-size: 13px;
+            line-height: 18px;
+            color: #333;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #d0d0d0;
+            border-bottom-color: #ccc;
+            background-color: #ffffff;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            outline: none !important; /*兼容grid*/
+            cursor: pointer;
+        }
+
+            .button.gray {
+                border: #DDDDDD;
+                background: #CCCCCC;
+                cursor: default;
+            }
+    </style>
+
+</head>
+<body id="app-body" class="sb-left">
+    <div id="index-loader" class="ajax-loader">
+        <div style="position: absolute;top: -10px;left:20px;right: 0;bottom: 0;margin: auto;width:120px;height:100px;">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#6b7a99;font-size: 60px;"></i>
+        </div>
+    </div>
+    <!--左侧导航栏-->
+    <div id="app-aside" class="app-aside left light in">
+        <!--头部信息-->
+        <header class="aside-header">
+            <div class="animated">
+                <div id="app-brand" class="app-brand">
+                    <a href="#">
+                        <span id="brand-icon" class="brand-icon">
+                            <!--<i class="fa fa-car" style="margin-bottom:0px;border:none;font-size: 30px;margin-top:-6px;"></i>-->
+                            <img src="/logo.jpg" style="width:40px;height:40px; border-radius:30px;margin-top:-8px;" />
+                        </span>
+                        <span id="brand-name" class="brand-icon foldable" style="font-size:18px;font-weight: 600;vertical-align:text-bottom;">智慧控申</span>
+                    </a>
+                </div>
+            </div>
+            <div class="sidebar-toggle">
+                <a id="aside-fold" class="cursor-pointer" title="收起导航">
+                    <i class="fa fa-outdent left"></i>
+                    <i class="fa fa-indent right" style="display:none;"></i>
+                </a>
+            </div>
+        </header>
+        <!--左侧菜单-->
+        <div class="aside-scroll">
+            <div id="aside-scroll-inner" class="aside-scroll-inner">
+                <ul id="aside-menu" class="aside-menu aside-left-menu"></ul>
+            </div>
+        </div>
+        <!--底部个人-->
+        <div id="aside-user" class="aside-user">
+            <div class="media">
+                <div class="media-left">
+                    <div class="avatar avatar-md avatar-circle">
+                        <img id="userHead" class="img-responsive" src="/images/avatar.png" alt="avatar">
+                    </div>
+                </div>
+                <div class="media-body  user-title" style="vertical-align: middle;">
+                    <div class="btn-group dropup">
+                        <a style="cursor:pointer;text-decoration:none;"><small id="userName"></small></a>
+                        <ul class="dropdown-menu flipInY" style="min-width: 140px;">
+                            <li>
+                                <a id="btn_userInfo"><i class="fa fa-user"></i><span>个人信息</span></a>
+                            </li>
+                            <li>
+                                <a id="btn_skin"><i class="fa fa-dashboard"></i><span>皮肤设置</span></a>
+                            </li>
+                            <li>
+                                <a id="btn_about"><i class="fa fa-info-circle"></i><span>关于平台</span></a>
+                            </li>
+                            <li>
+                                <a id="btn_logout"><i class="fa fa-power-off"></i><span>退出系统</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--头部导航栏-->
+    <div id="app-navbar" class="app-navbar p-l-md in">
+        <div id="app-navbar-tabs" class="app-navbar-tabs" data-target="#app-navbar-contextmenu">
+            <div class="app-navbar-tabs-content">
+                <ul>
+                    <li class="active">
+                        <a class="menu-tab cursor-pointer" id="menu-tabconsole" data-id="console"><i class="fa fa-home"></i><span>首页</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="app-navbar-contextmenu">
+            <ul class="dropdown-menu">
+                <li><a data-type="reloadCurrent" class="cursor-pointer">刷新当前</a></li>
+                <li><a data-type="closeCurrent" class="cursor-pointer">关闭当前</a></li>
+                <li><a data-type="closeOther" class="cursor-pointer">关闭其他</a></li>
+                <li><a data-type="closeAll" class="cursor-pointer">关闭所有</a></li>
+                <li><a data-type="fullScreen" class="cursor-pointer">全屏模式</a></li>
+                <li><a data-type="tabPreview" class="cursor-pointer">标签预览</a></li>
+            </ul>
+        </div>
+        <div id="top-nav">
+            <ul class="pull-right m-r-xs">
+                <li class="nav-item" style="width:46px;">
+                    <!--fa-bell-o-->
+                    <a id="navbar-news-open" class="cursor-pointer">
+                        <i class="fa fa-exclamation-triangle edit-color" title="提醒" data-toggle="tooltip" data-placement="bottom"></i>
+                        <span id="lbl_overdueCount" class="label label-danger pull-right">0</span>
+                    </a>
+                </li>
+                <li class="nav-item" style="width:46px;">
+                    <a id="navbar-search-open" class="navbar-search-open cursor-pointer">
+                        <i class="fa fa-search search-color" title="搜索" data-toggle="tooltip" data-placement="bottom"></i>
+                    </a>
+                </li>
+                <li class="nav-item" style="width:46px;">
+                    <a id="navbar-clear-open" class="cursor-pointer">
+                        <i class="fa fa-refresh delete-color" title="刷新" data-toggle="tooltip" data-placement="bottom"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="navbar-search" class="navbar-search">
+            <span class="search-icon"><i class="fa fa-search"></i></span><input class="search-field" type="search" placeholder="搜索：导航菜单" />
+        </div>
+    </div>
+    <!--iframs-->
+    <div id="app-main" class="app-main">
+        <img class="loading-iframe" src="/images/loading-iframe.gif" />
+        <div class="app-main-iframe" id="iframeconsole" name="iframeconsole" style="background-color: #e6e9f0;overflow:auto;width:100%;height:100%;padding: 0px 10px;padding-top: 10px;">
+            <div class="rows">
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget m-r-xs m-b-sm">
+                        <div class="widget-body" style="height: 80px;">
+                            <div class="task-stat-content task-bga">
+                                <div class="ricon">
+                                    <i class="fa fa-book"></i>
+                                </div>
+                                <span class="num" id="petition_count">0</span>
+                                <span class="title">案件总数</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget m-r-xs m-l-xs m-b-sm">
+                        <div class="widget-body" style="height: 80px;">
+                            <div class="task-stat-content task-bgb">
+                                <div class="ricon"><i class="fa fa-calendar-check-o"></i></div>
+                                <span class="num" id="finish_count">0</span>
+                                <span class="title">已办理数</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget m-r-xs m-l-xs m-b-sm">
+                        <div class="widget-body" style="height: 80px;">
+                            <div class="task-stat-content task-bge">
+                                <div class="ricon"><i class="fa fa-calendar-times-o"></i></div>
+                                <span class="num" id="act_count">0</span>
+                                <span class="title">未办理数</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget m-r-xs m-l-xs m-b-sm">
+                        <div class="widget-body" style="height: 80px;">
+                            <div class="task-stat-content task-bgc">
+                                <div class="ricon"><i class="fa fa-user"></i></div>
+                                <span class="num" id="user_count">0</span>
+                                <span class="title">用户总数</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rows">
+                <div class="col-md-12 col-sm-12">
+                    <div class="widget m-r-xs m-b-sm">
+                        <div class="nav-tabs-horizontal" style="position: absolute;right: 10px;top: 12px;">
+                            <span class="label label-info">合计</span>
+                        </div>
+                        <div class="widget-header ">
+                            <h4 class="widget-title" id="petition_line">案件数量</h4>
+                        </div>
+                        <hr class="widget-separator">
+                        <div class="main-box-content" style="height:400px;padding:10px;">
+                            <div id="storage" style="height:100%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rows">
+                <div class="col-md-4 col-sm-4">
+                    <div class="widget m-r-xs m-b-sm">
+                        <div class="widget-header ">
+                            <h4 class="widget-title" id="device_line">公告栏</h4>
+                        </div>
+                        <hr class="widget-separator">
+                        <div id="note" class="main-box-content" style="height:260px;padding:10px;overflow:hidden">
+                            <ul class="noticelist"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rows">
+                <div class="col-md-8 col-sm-8">
+                    <div class="widget m-r-xs m-b-sm">
+                        <div class="widget-header ">
+                            <h4 class="widget-title">预警信息</h4>
+                        </div>
+                        <hr class="widget-separator">
+                        <div class="main-box-content" style="height:260px;padding:10px;">
+                            <div class="main-bd jqgrid-d">
+                                <table id="gridTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 通知提醒 -->
+    <div id="notificationMessageContainer" class="notification-message-container" style="display:none;">
+        <span id="notificationMessageOperate" class="notification-message-operate" title="隐藏">
+            <img class="notification-message-operate-icon" src="../images/logo-notification.png">
+        </span>
+        <div id="notificationMessageListContainer" class="notification-message-list-container" style="">
+        </div>
+    </div>
+
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/jquery-storage-api/jquery.storageapi.min.js"></script>
+    <script src="/assets/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap-contextmenu.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <script src="/assets/jquery-md5/jquery.md5.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/wdtree/wdtree.js"></script>
+
+    <script src="/assets/jqgrid/grid.js"></script>
+
+    <script src="/assets/echarts/echarts.min.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="/scripts/appdata.js"></script>
+    <script src="/scripts/index.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+        updateisClosed();
+        function updateisClosed() {
+            jinkai.ajax({
+                async: false,
+                type: "Post",
+                url: "/ajax/news.ashx?action=isClosed",
+                param: {},
+                success: function (result) {
+                    return;
+                }
+            })
+        }
+        var interval = setTimeout(sendMessage(), 500);
+
+        //setInterval('sendMessage()', time);//参数是字符串
+        function sendMessage() {
+            clearInterval(interval);
+            getList();
+            interval = setInterval('sendMessage()', 20000);
+        }
+        var list;
+        var timeout_loadMsgAmount;
+        var isStartNotification = false;
+        //获取登陆用户信息
+        var userId = _top.$.indexData.userProvider.userId;
+        //initNotification();
+        // 初始化通知中心
+        function initNotification() {
+            if (isStartNotification) {
+                // 通知中心
+                $('#metroNotificationCenter,#metroNotificationCenterTips').click(function (e) {
+                    //clearTimeout(timeout_loadMsgAmount);
+                    loadUnReadMsgAmount();    // 加载未读 
+                    //showFunctionWindow("notificationCenter", 通知中心, "./w?sid=" + sid + "&cmd=com.actionsoft.apps.notification_center");
+                    if ($('#notificationMessageOperate').next().css('display') != 'none') {
+                        $('#notificationMessageOperate').click();
+                    }
+                });
+                // 展开/隐藏消息通知面板
+                $('#notificationMessageOperate').click(function (e) {
+                    var _self = $(this);
+                    var title = _self.attr('title');
+                    if (title == '显示') {
+                        showNotificationMessage();	// 展开显示通知消息
+                    } else {
+                        // 收缩
+                        _self.next().stop().slideUp('slow', function (e) {
+                            _self.addClass('top').attr('title', '显示');
+                            _self.children('img').attr('src', '../images/logo-notification-untitled.png');
+                        });
+                    }
+                });
+                loadUnReadMsgAmount();	// 定时加载未读通知消息记录数
+            } else {
+                // 隐藏消息通知图标(左侧的图标和消息数，右下角的铃铛)
+                $('#metroNotificationCenter,#metroNotificationCenterTips,#notificationMessageContainer').hide();
+            }
+        };
+        function getList() {
+            jinkai.ajax({
+                async: true,
+                type: "Get",
+                url: "/ajax/news.ashx?action=message",
+                param: { type: "push" },
+                success: function (result) {
+                    list = result.data.items;
+                    if (list.length > 0) {
+                        for (var i = 0 ; i < list.length; i++) {
+                            var data = list[i];
+                            //作者ID
+                            var authorId = data.authorId;
+                            if (authorId == userId) {
+                                list.splice(i, 1);
+                                i--;
+                            }
+                        }
+                        if (list.length == 0) {
+                            isStartNotification = false;
+                        } else {
+                            isStartNotification = true;
+                        }
+                    } else {
+                        isStartNotification = false;
+                    }
+                    initNotification();
+                }
+            })
+
+        }
+
+        // 定时加载未读通知消息记录数
+        function loadUnReadMsgAmount() {
+            var html = "";
+            if (list.length > 0) {
+                html = buildHtml(list);
+
+                $('#metroNotificationCenter,#metroNotificationCenterTips,#notificationMessageContainer').show();
+                $("#notificationMessageListContainer").html(html);
+
+
+                //var operate_close = $('<span class="notification-operate-close" title="' + "关闭" + '"></span>');
+                $(".notification-operate-close").click(function () {
+                    var mid = $(this).parent().attr('msgid');
+                    $(this).parent().slideUp(function () {
+                        updateMsgStatus(mid, "isClosed", 1);
+                    });           
+                });
+                $(".notification-operate-buttons").click(function () {
+                    var nid = $(this).parent().attr('newsid');
+                    var mid = $(this).parent().attr('msgid');
+                    //layer.msg("点击了打开" + msgid);
+                    $(this).parent().slideUp(function () {
+                        jinkai.newsDetail(nid);
+                        updateMsgStatus(mid, "isRead", 1);
+                    });
+                    
+                });
+
+            }
+        }
+        function updateMsgStatus(msgid, field, val) {
+            var param = {
+                msgid: msgid,
+                field: field,
+                value: val
+            }
+            jinkai.ajax({
+                async: true,
+                type: "Post",
+                url: "/ajax/news.ashx?action=msgStatus",
+                param: param,
+                success: function (result) {
+                    return;
+                }
+            })
+        }
+        function buildHtml(list) {
+            var html = "";
+            for (var i = 0 ; i < list.length; i++) {
+                var data = list[i];
+                var msgId = data.id;
+                var newsId = data.newsId;
+                var title = data.title;
+                var author = data.author;
+                var newsDate = data.newsDate;
+                var isClosed = data.isClosed;
+                var creatorAvatar = data.creatorAvatar;
+
+                var avatar = "";
+                if (creatorAvatar != "" && creatorAvatar != null && creatorAvatar != undefined) {
+                    avatar = creatorAvatar;
+                } else {
+                    avatar = "../images/avatar.png";
+                }
+                var appsystem_name = "通知中心";
+                var message_content = "【" + author + "】 " + title;
+                var datetime = newsDate;//"刚刚11:10";
+                if (isClosed != 1) {
+                    var html1 = "<div class=\"notification-message-item-container i\" newsid=\"" + newsId + "\" msgid=\"" + msgId + "\" style=\"display:block;\">" +
+                    "<img class=\"notification-appsystem-icon\" src=\"../logo.jpg\">" +
+                    "<img class=\"notification-sender-photo\" src=\"" + avatar + "\">" +
+                    "<div class=\"notification-message-content-container\">" +
+                    "<div class=\"notification-appsystem-name\">" + appsystem_name + "</div>" +
+                    "<div class=\"notification-message-content\">" + message_content + "</div>" +
+                "</div>" +
+                "<div class=\"notification-operate-buttons\">" +
+                "<span class=\"button notification-operate-button white\">打开</span>" +
+                "</div>" +
+                "<span class=\"notification-datetime\">" + datetime + "</span>" +
+                "<span class=\"notification-operate-close\" title=\"关闭\"></span>" +
+                "</div>";
+                    html += html1;
+                }
+
+            }
+            return html;
+        }
+        // 显示消息通知
+        function showNotificationMessage() {
+            var _self = $('#notificationMessageOperate');
+            // 展开
+            _self.removeClass('top');
+            _self.next().stop().slideDown('slow', function (e) {
+                _self.attr('title', '隐藏');
+                _self.children('img').attr('src', '../images/logo-notification.png');
+            });
+        }
+
+
+    </script>
+</body>
+</html>

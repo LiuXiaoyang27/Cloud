@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8EBD8621-C729-4534-BFAC-DAAD21A1BE4B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AESEncrypt.cs" />
+    <Compile Include="Base64.cs" />
+    <Compile Include="ChineseSpell.cs" />
+    <Compile Include="Encrypt.cs" />
+    <Compile Include="Constant.cs" />
+    <Compile Include="DESEncrypt.cs" />
+    <Compile Include="FileData.cs" />
+    <Compile Include="JsonHelp.cs" />
+    <Compile Include="LogWriter.cs" />
+    <Compile Include="PagingHelper.cs" />
+    <Compile Include="Thumbnail.cs" />
+    <Compile Include="UploadHelper.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="VINUtils.cs" />
+    <Compile Include="ZipHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CmnBLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ikvm">
+      <HintPath>..\CmnBLL\IKVM\ikvm.exe</HintPath>
+    </Reference>
+    <Reference Include="IKVM.AWT.WinForms">
+      <HintPath>..\CmnBLL\IKVM\IKVM.AWT.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Beans">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Beans.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Charsets">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Charsets.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Corba">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Corba.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Jdbc">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Jdbc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Management">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Media">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Misc">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Misc.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Naming">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Naming.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Remoting">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Remoting.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Security">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.SwingAWT">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.SwingAWT.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Text">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Tools">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Util">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.API">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.XML.API.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Bind">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.XML.Bind.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Crypto">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.XML.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Parse">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.XML.Parse.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Transform">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.XML.Transform.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.WebServices">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.XML.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.XPath">
+      <HintPath>..\CmnBLL\IKVM\IKVM.OpenJDK.XML.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Reflection">
+      <HintPath>..\CmnBLL\IKVM\IKVM.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime">
+      <HintPath>..\CmnBLL\IKVM\IKVM.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="IKVM.Runtime.JNI">
+      <HintPath>..\CmnBLL\IKVM\IKVM.Runtime.JNI.dll</HintPath>
+    </Reference>
+    <Reference Include="ikvmc">
+      <HintPath>..\CmnBLL\IKVM\ikvmc.exe</HintPath>
+    </Reference>
+    <Reference Include="ikvmstub">
+      <HintPath>..\CmnBLL\IKVM\ikvmstub.exe</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\CmnBLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{a151f237-dee0-410d-8086-3a1d247c2ded}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

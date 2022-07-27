@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>智慧控申-过期案件</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="ajax-loader"></div>
+    <div class="main-body">
+        <div class="main-hd">
+            <div class="hd-search">
+                <table>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="input-group">
+                                <input id="matchCon" type="text" class="form-control p-r-lg input-sm" maxlength="30" placeholder="请输入案件名称/当事人/接访人" autocomplete="off" style="width: 215px;" />
+                                <span class="input-group-btn">
+                                    <button id="search" class="btn btn-primary btn-sm" type="button">查询</button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="main-bd jqgrid-d">
+            <table id="gridTable"></table>
+        </div>
+    </div>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jqgrid/grid.js"></script>
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="overdue.js"></script>
+</body>
+</html>

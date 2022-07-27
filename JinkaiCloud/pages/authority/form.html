@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户表单</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+</head>
+<body style="background-color: #fff; overflow-y: auto;">
+    <div class="ajax-loader"></div>
+    <form id="appForm" autocomplete="off">
+        <div class="accordion" id="accordion">
+            <div class="panel panel-default b-0 b-t-1">
+                <div class="panel-heading">
+                    <a class="accordion-toggle collapsed">基本信息</a>
+                </div>
+                <div id="collapse-1" class="panel-collapse">
+                    <div class="panel-body form" style="margin-left: -15px; margin-right: 30px; padding-top: 15px; padding-bottom: 25px;">
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">用户名<font>*</font></label>
+                            <div class="control-value">
+                                <input v-model="user.username" name="username" type="text" class="form-control required" placeholder="输入账户" maxlength="10" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">姓名<font>*</font></label>
+                            <div class="control-value">
+                                <input v-model="user.name" name="name" type="text" class="form-control required" placeholder="输入姓名" maxlength="10" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">手机号码<font>*</font></label>
+                            <div class="control-value">
+                                <input v-model="user.mobile" name="mobile" type="text" class="form-control isMobile required" placeholder="输入手机号码" maxlength="11" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">部门<font>*</font></label>
+                            <div class="control-value">
+                                <select v-select="user.deptId" name="deptId" class="form-control required">
+                                    <option value="">选择部门</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">角色<font>*</font></label>
+                            <div class="control-value">
+                                <select v-select="user.roleId" name="roleId" class="form-control required">
+                                    <option value="">选择角色</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 col-xs-12">
+                            <label class="control-label">备注</label>
+                            <div class="control-value">
+                                <textarea v-model="user.description" name="description" class="form-control" style="height: 80px;" maxlength="200"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default b-0 b-t-1">
+                <div class="panel-heading">
+                    <a class="accordion-toggle collapsed">扩展信息</a>
+                </div>
+                <div id="collapse-2" class="panel-collapse">
+                    <div class="panel-body form" style="margin-left: -15px; margin-right: 30px; padding-top: 15px; padding-bottom: 25px;">
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">性别<font>*</font></label>
+                            <div class="control-value">
+                                <select v-select="user.gender" name="gender" class="form-control required">
+                                    <option value="">选择性别</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                    <option value="3">保密</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">头像</label>
+                            <div class="control-value" style="position: initial;">
+                                <div class="b-1x" style="position: absolute; box-shadow: 1px 1px 1px rgba(0,0,0,0.15); padding: 4px; cursor: pointer;">
+                                    <div id="up-img-touch">
+                                        <img id="previewAvatar" src="/images/avatar.png" style="height: 242px; width: 242px;" />
+                                        <input id="uploadAvatar" name="uploadAvatar" type="file" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">民族</label>
+                            <div class="control-value">
+                                <select v-select="user.nation" name="nation" class="form-control">
+                                    <option value="">选择民族</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6"></div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">籍贯</label>
+                            <div class="control-value">
+                                <input v-model="user.nativeplace" id="nativeplace" name="nativeplace" type="text" class="form-control" maxlength="50"/>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6"></div>
+                        <div class="form-group col-sm-6 col-xs-6">
+
+
+                            <label class="control-label">出生年月</label>
+                            <div class="control-value">
+                                <input v-model="user.birthday" id="birthday" name="birthday" type="text" class="form-control" placeholder="选择年月" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6"></div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">证件类型</label>
+                            <div class="control-value">
+                                <select v-select="user.certificatesType" name="certificatesType" class="form-control">
+                                    <option value="">选择证件</option>
+                                    <option value="1">身份证</option>
+                                    <option value="2">驾驶证</option>
+                                    <option value="3">护照</option>
+                                    <option value="4">军人证</option>
+                                    <option value="5">港澳身份证</option>
+                                    <option value="6">台胞证</option>
+                                    <option value="7">其它</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6"></div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">证件号码</label>
+                            <div class="control-value">
+                                <input v-model="user.certificatesNumber" name="certificatesNumber" type="text" class="form-control isCardId" maxlength="18" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6"></div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">文化程度</label>
+                            <div class="control-value">
+                                <select v-select="user.education" name="education" class="form-control">
+                                    <option value="">选择学历</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">入职日期</label>
+                            <div class="control-value">
+                                <input v-model="user.entryDate" id="entryDate" name="entryDate" type="text" class="form-control" placeholder="选择日期" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">办公电话</label>
+                            <div class="control-value">
+                                <input v-model="user.telephone" name="telephone" type="text" class="form-control isPhone" maxlength="12" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">办公座机</label>
+                            <div class="control-value">
+                                <input v-model="user.landLine" name="landLine" type="text" class="form-control isTel" maxlength="12" />
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label class="control-label">电子邮箱</label>
+                            <div class="control-value">
+                                <input v-model="user.email" name="email" type="text" class="form-control email" maxlength="20" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 col-xs-12">
+                            <label class="control-label">通讯地址</label>
+                            <div class="control-value">
+                                <input v-model="user.postalAddress" name="postalAddress" type="text" class="form-control" maxlength="60"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/wdtree/wdtree.js" type="text/javascript"></script>
+    <script src="/assets/switchery/switchery.min.js" type="text/javascript"></script>
+    <script src="/assets/datePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="/assets/jquery-md5/jquery.md5.js" type="text/javascript"></script>
+    <script src="/scripts/common.js" type="text/javascript"></script>
+    <script src="form.js"></script>
+</body>
+</html>

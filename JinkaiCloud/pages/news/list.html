@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>通知公告</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <style>
+         .input-Wdate {
+            background: url(/assets/datePicker/datepicker.png) right 0 no-repeat #FFF;
+        }
+        .operating {
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="ajax-loader"></div>
+    <div class="main-body">
+        <div class="main-hd">
+            <div class="hd-search">
+                <table>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="input-group">
+                                <input id="matchCon" type="text" class="form-control p-r-lg input-sm" maxlength="30" placeholder="请输入公告标题/作者" autocomplete="off" style="width: 215px;" />
+                                <span class="input-group-btn">
+                                    <button id="search" class="btn btn-default btn-sm" type="button">查询</button></span>
+                            </div>
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <div id="timeHorizon" class="btn-group input-group search-panel">
+                                <a class="btn btn-default btn-sm" data-value="0">全部</a>
+                                <a class="btn btn-default btn-sm" data-value="1">近7天</a>
+                                <a class="btn btn-default btn-sm" data-value="2">近1月</a>
+                                <a class="btn btn-default btn-sm" data-value="3">近3月</a>
+                                <a class="btn btn-default btn-sm" data-value="4">自定义</a>
+                                <div class="dropdown-menu pull-right" style="min-width: 300px; min-height: 160px; top: 30px;">
+                                    <form class="form" style="padding-top: 10px; margin-right: 30px;" autocomplete="off">
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label">起始日期</label>
+                                            <div class="control-value">
+                                                <input id="txt_startTime" type="text" class="form-control input-Wdate" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label">结束日期</label>
+                                            <div class="control-value">
+                                                <input id="txt_endTime" type="text" class="form-control input-Wdate" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="form-button p-v-0 b-t-1 bg-white">
+                                        <a class="search btn btn-primary btn-sm m-r-xs"><i class="fa fa-search" style="width: inherit; margin-right: 5px; vertical-align: middle; margin-top: -1px;"></i>查询</a>
+                                        <a class="btn_close btn btn-default btn-sm m-r-xs"><i class="fa fa-close i-default" style="width: inherit; margin-right: 5px; vertical-align: middle; margin-top: -1px;"></i>关闭</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="hd-btn">
+                <div class="btn-group btn-defaultOpear">
+                    <a class="btn btn-primary btn-sm" onclick="jinkai.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+                </div>
+                <div class="btn-group btn-authorize">
+                    <a id="btn_add" authorize="yes" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>新建</a>
+                    <a id="btn_delete" authorize="yes" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i>删除</a>
+                    <!--<a id="btn_disable" authorize="yes" class="btn btn-default btn-sm"><i class="fa fa-eye-slash"></i>取消发布</a>-->
+                    <!--<a id="btn_enable" authorize="yes" class="btn btn-default btn-sm"><i class="fa fa-paper-plane"></i>发布</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="main-bd">
+            <table id="gridTable"></table>
+        </div>
+    </div>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jqgrid/grid.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/datePicker/WdatePicker.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="list.js"></script>
+</body>
+</html>

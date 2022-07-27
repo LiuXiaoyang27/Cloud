@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分类表单</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <link href="/assets/icheck/skins/all.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+</head>
+<body style="background-color: #fff; overflow-y: auto;">
+    <div class="ajax-loader"></div>
+    <form id="appForm" class="form" style="margin-left: -20px; padding-top: 15px; margin-right: 30px;" autocomplete="off">
+        <div class="form-group col-sm-12">
+            <label class="control-label">上级<font>*</font></label>
+            <div class="control-value">
+                <select v-select="category.ParentId" name="ParentId" class="form-control required">
+                    <option value="">选择上级</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">名称<font>*</font></label>
+            <div class="control-value">
+                <input v-model="category.FullName" name="FullName" type="text" class="form-control required" placeholder="输入名称" maxlength="10" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">编码<font>*</font></label>
+            <div class="control-value">
+                <input v-model="category.EnCode" name="EnCode" type="text" class="form-control required" placeholder="输入编码" onKeyUp="value=value.replace(/[\W]/g,'')" maxlength="15"/>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">树形</label>
+            <div class="control-value">
+                <div style="padding-top: 6px; padding-bottom: 5px;">
+                    <input v-switch="category.IsTree" name="IsTree" type="checkbox" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">说明</label>
+            <div class="control-value">
+                <textarea v-model="category.Description" name="Description" class="form-control" style="height: 80px;" maxlength="200"></textarea>
+            </div>
+        </div>
+    </form>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/jqgrid/grid.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/wizard/wizard.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <script src="/assets/switchery/switchery.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/wdtree/wdtree.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="TypeForm.js"></script>
+</body>
+</html>

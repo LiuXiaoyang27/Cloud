@@ -1,0 +1,34 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <title>网上信访-导入</title>
+    <link href="import.css" rel="stylesheet" />    
+
+</head>
+<body>
+    <div class="content">
+        <ul>
+            <li class="row-item">
+                <b>导入步骤</b>
+                <p>1. 下载模版 >  2. 导入<span id="impType"></span> >  <a style="color:#0094ff">3. 导入完成</a> </p>
+            </li>
+            <li class="row-item">
+                <b>导入提示</b>
+                <p id="msg"></p>
+            </li>             
+        </ul>
+    </div>
+    <div class="fixed-footer">
+        <div style="float: right;margin-right: 20px;">
+            <button id="btn_pre" type="button" class="btn btn-blue">上一步</button>
+            <button id="btn_close" type="button" class="btn btn-default" style="margin-left: 8px;">退出</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="/assets/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/layer/layer.js"></script>
+    <script type="text/javascript" src="import-msg.js"></script>
+</body>
+</html>

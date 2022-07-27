@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智慧控申-信访案件</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="/assets/webuploader/webuploader.css" rel="stylesheet" type="text/css" />
+    <link href="upload/style.css" rel="stylesheet" />
+    <style type="text/css">
+        .date {
+            background: url(/assets/datePicker/datepicker.png) right 0 no-repeat #FFF;
+        }
+
+        th {
+            width: 12%;
+            text-align: center;
+        }
+
+        .ui-input {
+            width: 100%;
+            border: none;
+        }
+
+        #filePicker div:nth-child(2) {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        #filePicker2 div:nth-child(2) {
+            width: 94px !important;
+            height: 42px !important;
+        }
+
+        .table > tbody > tr:hover {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body style="background-color: #fff; overflow-y: auto;">
+    <div class="ajax-loader"></div>
+    <form id="appForm" class="form" style="margin-right: 30px; padding-top: 15px;" autocomplete="off">
+        <div class="nav-tabs-highlight" style="margin-top:10px;">
+            <ul class="nav nav-tabs" style="border-bottom:2px solid #188ae2">
+                <li class="active" style="margin-left:10px;"><a href="#tab-1" data-toggle="tab">基础信息</a></li>
+                <li><a href="#tab-2" data-toggle="tab">文件资料</a></li>
+            </ul>
+            <div class="tab-content" style="padding-top: 10px; margin-right: 20px; margin-left: 20px;">
+                <div class="tab-pane fade in active" id="tab-1">
+                    <div class="form">
+                        <table class="table table-bordered form-group">
+                            <tr>
+                                <th>
+                                    <span>日期<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px" >
+                                    <input v-model="petition.createDate" name="createDate" id="createDate" class="form-control date ui-input required" type="text" readonly="readonly" placeholder="选择日期" />
+                                </td>
+                                <th>
+                                    <span>案件名称<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px">
+                                    <input v-model="petition.caseName" name="caseName" type="text" class="form-control ui-input required" maxlength="50" placeholder="输入案件名称" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span>当事人<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px;">
+                                    <input v-model="petition.pName" name="pName" type="text" class="form-control ui-input required" maxlength="15" placeholder="输入当事人" />
+                                </td>
+                                <th>
+                                    <span>身份证号<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px">
+                                    <input v-model="petition.pIdCard" name="pIdCard" type="text" class="form-control ui-input required isCardId" maxlength="20" placeholder="输入身份证号" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span>家庭住址</span>
+                                </th>
+                                <td class="control-value" style="padding: 0px" colspan="3">
+                                    <input v-model="petition.pAddress" name="pAddress" type="text" class="form-control ui-input required" maxlength="50" placeholder="输入地址" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span>案件类型<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px;">
+                                    <select v-select="petition.caseType" name="caseType" class="form-control required">
+                                        <option value="">请选择案件类型</option>
+                                    </select>
+                                </td>
+                                <th>
+                                    <span>案件种类<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px">
+                                    <select v-select="petition.caseCategory" name="caseCategory" class="form-control required">
+                                        <option value="">请选择案件种类</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span>案件来源<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px;">
+                                    <select v-select="petition.caseSource" name="caseSource" class="form-control required">
+                                        <option value="">请选择案件来源</option>
+                                    </select>
+                                </td>
+                                <th>
+                                    <span>来访渠道<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px">
+                                    <select v-select="petition.channels" name="channels" class="form-control required">
+                                        <option value="">请选择来访渠道</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <span>接访人<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px;">
+                                    <input v-model="petition.receiver" name="receiver" type="text" class="form-control ui-input required" maxlength="15" placeholder="输入接访人" />
+                                </td>
+                                <th>
+                                    <span>办理期限<font style="color: #ff0000">*</font></span>
+                                </th>
+                                <td class="control-value" style="padding: 0px">
+                                    <div class="input-group">
+                                        <input v-model="petition.rerm" name="rerm" type="text" class="form-control ui-input required isDigits" maxlength="3" placeholder="输入办理期限" />
+                                        <span class="input-group-addon" style="border:none;">天</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="height:80px">
+                                <th style="vertical-align: middle;">
+                                    <span>扩展字段1</span>
+                                </th>
+                                <td class="control-value" style="padding: 0px" colspan="3">
+                                    <textarea v-model="petition.ext1" name="ext1" type="text" class="form-control ui-input" style="height: 80px" maxlength="200" placeholder="扩展字段1"></textarea>
+                                </td>
+                            </tr>
+                            <tr style="height:80px">
+                                <th style="vertical-align: middle;">
+                                    <span>扩展字段2</span>
+                                </th>
+                                <td class="control-value" style="padding: 0px" colspan="3">
+                                    <textarea v-model="petition.ext2" name="ext2" type="text" class="form-control ui-input" style="height: 80px" maxlength="200" placeholder="扩展字段2"></textarea>
+                                </td>
+                            </tr>
+                            <tr style="height:80px">
+                                <th style="vertical-align: middle;">
+                                    <span>扩展字段3</span>
+                                </th>
+                                <td class="control-value" style="padding: 0px" colspan="3">
+                                    <textarea v-model="petition.ext3" name="ext3" type="text" class="form-control ui-input" style="height: 80px" maxlength="200" placeholder="扩展字段3"></textarea>
+                                </td>
+                            </tr>
+                            <tr style="height:80px">
+                                <th style="vertical-align: middle;">
+                                    <span>扩展字段4</span>
+                                </th>
+                                <td class="control-value" style="padding: 0px" colspan="3">
+                                    <textarea v-model="petition.ext4" name="ext4" type="text" class="form-control ui-input" style="height: 80px" maxlength="200" placeholder="扩展字段4"></textarea>
+                                </td>
+                            </tr>
+                            <tr style="height:80px">
+                                <th style="vertical-align: middle;">
+                                    <span>扩展字段5</span>
+                                </th>
+                                <td class="control-value" style="padding: 0px" colspan="3">
+                                    <textarea v-model="petition.ext5" name="ext5" type="text" class="form-control ui-input" style="height: 80px" maxlength="200" placeholder="扩展字段5"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab-2">
+
+                    <div id="container">
+                        <!--头部，相册选择和格式选择-->
+
+                        <div id="uploader">
+                            <div class="queueList">
+                                <div id="dndArea" class="placeholder">
+                                    <div id="filePicker"></div>
+                                    <p>或将文件拖到这里，单次最多可选100个，文件不能大于20M</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display:none;">
+                                <div class="progress">
+                                    <span class="text">0%</span>
+                                    <span class="percentage"></span>
+                                </div>
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/switchery/switchery.min.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <script src="/assets/datePicker/WdatePicker.js"></script>
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/webuploader/webuploader.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="upload/upload.js"></script>
+    <script src="form.js"></script>
+</body>
+</html>

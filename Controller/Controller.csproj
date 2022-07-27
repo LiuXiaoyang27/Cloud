@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BBB1F689-C8D3-428B-BAC7-708FAF37CFB1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Controller</RootNamespace>
+    <AssemblyName>Controller</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="OldPetitionController.cs" />
+    <Compile Include="PetitionFileController.cs" />
+    <Compile Include="PetitionRulesController.cs" />
+    <Compile Include="PetitionController.cs" />
+    <Compile Include="DeptController.cs" />
+    <Compile Include="DictionaryDataController.cs" />
+    <Compile Include="DictionaryTypeController.cs" />
+    <Compile Include="ExcelController.cs" />
+    <Compile Include="NewsController.cs" />
+    <Compile Include="MenuController.cs" />
+    <Compile Include="LogsController.cs" />
+    <Compile Include="AdminController.cs" />
+    <Compile Include="PdfController.cs" />
+    <Compile Include="RoleController.cs" />
+    <Compile Include="OptionsController.cs" />
+    <Compile Include="UtilsController.cs" />
+    <Compile Include="WordController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\CmnBLL\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\CmnBLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\CmnBLL\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\CmnBLL\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\CmnBLL\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\CmnBLL\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Doc">
+      <HintPath>..\CmnBLL\FreeSpire\Spire.Doc.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License">
+      <HintPath>..\CmnBLL\FreeSpire\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf">
+      <HintPath>..\CmnBLL\FreeSpire\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="zxing">
+      <HintPath>..\CmnBLL\zxing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{7d278482-271d-4794-bc88-56cfc23b5e44}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8ebd8621-c729-4534-bfac-daad21a1be4b}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{a151f237-dee0-410d-8086-3a1d247c2ded}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

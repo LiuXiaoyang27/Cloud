@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智慧控申-陈年旧案</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .date {
+            background: url(/assets/datePicker/datepicker.png) right 0 no-repeat #FFF;
+        }
+    </style>
+</head>
+<body style="background-color: #fff; overflow-y: auto;">
+    <div class="ajax-loader"></div>
+    <form id="appForm" class="form" style="margin-right: 30px; padding-top: 15px;" autocomplete="off">
+        <div class="form-group col-sm-12">
+            <label class="control-label">文件名</label>
+            <div class="control-value">
+                <input v-model="oldPetition.fileName" name="fileName" type="text" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">案件名称</label>
+            <div class="control-value">
+                <input v-model="oldPetition.title" name="title" type="text" class="form-control" placeholder="请填写案件名称" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">案件时间</label>
+            <div class="control-value">
+                <input v-model="oldPetition.pDate" name="pDate" id="pDate" type="text" class="form-control date" readonly placeholder="请选择时间" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">当事人</label>
+            <div class="control-value">
+                <input v-model="oldPetition.pName" name="pName" type="text" class="form-control" placeholder="请填写当事人" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">办理人</label>
+            <div class="control-value">
+                <input v-model="oldPetition.attendName" name="attendName" type="text" class="form-control" placeholder="请填写办理人/负责人" />
+            </div>
+        </div>
+    </form>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/switchery/switchery.min.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <script src="/assets/datePicker/WdatePicker.js"></script>
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="form.js"></script>
+</body>
+</html>

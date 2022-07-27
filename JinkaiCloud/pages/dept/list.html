@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <title>部门管理</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="ajax-loader"></div>
+    <div class="main-body">
+        <div class="main-hd">
+            <div class="hd-search">
+                <table>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="input-group">
+                                <input id="txt_keyword" type="text" class="form-control p-r-lg input-sm" maxlength="20" placeholder="请输入部门名称/部门编号" autocomplete="off" style="width: 215px;" />
+                                <span class="input-group-btn">
+                                    <button id="search" class="btn btn-default btn-sm" type="button">搜索</button></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="hd-btn btn-authorize">
+                <div class="btn-group ">
+                    <a class="btn btn-primary btn-sm" onclick="jinkai.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+                </div>
+                <div class="btn-group">
+                    <a authorize="yes" id="btn_add" class="btn btn-primary btn-sm dropdown-text" data-toggle="dropdown"><i class="fa fa-plus"></i>新建机构<a class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a></a>
+                    <ul class="dropdown-menu fz-sm pull-right">
+                        <li><a authorize="yes" id="btn_add_city">新建城市</a></li>
+                        <li><a authorize="yes" id="btn_add_college">新建院校</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-operate" data-trigger="gridTable">
+                    <ul class="nav nav-pills">
+                        <li class="first">已选中<span>1</span>项</li>
+                        <li><a authorize="yes" id="btn_edit"><i class="fa fa-pencil-square-o"></i>编辑</a></li>
+                        <li><a authorize="yes" id="btn_delete"><i class="fa fa-trash-o"></i>删除</a></li>
+                    </ul>
+                    <a class="close"></a>
+                </div>
+            </div>
+        </div>
+        <div class="main-bd">
+            <table id="gridTable"></table>
+        </div>
+    </div>
+
+   <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/jqgrid/grid.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="list.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <title>网上信访-频道编辑</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <style>
+        .action :hover {
+            cursor: pointer;
+        }
+
+        .ui-icon-ellipsis {
+            position: absolute;
+            right: 0px;
+            top: 10px;
+            width: 25px;
+            text-align: center;
+            color: #6b7a99;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        #showIcon {         
+            top: -1px;
+            right: 26px;
+            font-size: 14px;
+            width: 16px;          
+            z-index: 99;
+            pointer-events: initial;
+            position: absolute;
+        }
+    </style>
+</head>
+<body style="background-color: #fff;overflow-y: auto;">
+    <div class="ajax-loader"></div>
+    <form id="appForm" class="form" style="margin-left: -20px;padding-top: 15px; margin-right: 30px;" autocomplete="off">
+        <div class="form-group col-sm-12">
+            <label class="control-label">上级导航<font>*</font></label>
+            <div class="control-value">
+                <select v-select="menu.parentId" name="parentId" class="form-control required">
+                    <option value="">选择上级</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">排序号码<font>*</font></label>
+            <div class="control-value">
+                <input v-model="menu.ordnum" name="ordnum" type="text" class="form-control required isDigits" maxlength="3" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">调用别名<font>*</font></label>
+            <div class="control-value">
+                <input v-model="menu.module" name="module" type="text" class="form-control required isNumber" maxlength="50" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">导航标题<font>*</font></label>
+            <div class="control-value">
+                <input v-model="menu.name" name="name" type="text" class="form-control required" maxlength="10" />
+            </div>
+        </div>    
+        <div class="form-group col-sm-12">
+            <label class="control-label">导航图标</label>
+            <div class="control-value">
+                <input readonly v-model="menu.fontIcon" name="fontIcon" type="text" class="form-control"/>
+                <span class="ui-icon-ellipsis" id="btnadd"><i class="fa fa-ellipsis-h"></i></span>
+                <a class="form-control-feedback i-default" id="showIcon"><i></i></a>
+            </div>
+        </div>
+
+
+        <div class="form-group col-sm-12">
+            <label class="control-label">导航类型<font>*</font></label>
+            <div class="control-value">
+                <select v-select="menu.navType" name="navType" class="form-control required">
+                    <option value="">选择类型</option>
+                    <option value="1">目录</option>
+                    <option value="2">页面</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12" style="display:none;">
+            <label class="control-label">链接地址<font>*</font></label>
+            <div class="control-value" style="overflow: inherit;">
+
+                <div class="input-group">
+                    <input v-model="menu.linkUrl" name="linkUrl" type="text" class="form-control" placeholder="填写地址" />
+                    <div class="input-group-btn">
+                        <button name="LinkTarget" type="button" class="btn btn-default dropdown-toggle" style="width:70px;text-align:right" data-toggle="dropdown">
+                            <span class="text">{{ menu.LinkTarget }}</span>
+                            <span class="caret" style="color: #888;margin-right: -2px;margin-left: 5px;"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a class="cursor-pointer">_self</a></li>
+                            <li><a class="cursor-pointer">_blank</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="form-group col-sm-12">
+            <label class="control-label">权限资源</label>
+            <div class="control-value action" style="padding-top: 8px;">
+                <div class="checkbox checkbox-primary">
+                    <input name="action-0" id="action-0" type="checkbox" checked="checked" disabled value="Show" />
+                    <label for="action-0">查看</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-1" id="action-1" type="checkbox" value="Add" />
+                    <label for="action-1">新增</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-2" id="action-2" type="checkbox" value="Edit" />
+                    <label for="action-2">修改</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-3" id="action-3" type="checkbox" value="Delete" />
+                    <label for="action-3">删除</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-4" id="action-4" type="checkbox" value="Enabled" />
+                    <label for="action-4">启用</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-5" id="action-5" type="checkbox" value="Export" />
+                    <label for="action-5">导出</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-6" id="action-6" type="checkbox" value="Import" />
+                    <label for="action-6">导入</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-7" id="action-7" type="checkbox" value="Print" />
+                    <label for="action-7">打印</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-8" id="action-8" type="checkbox" value="Audit" />
+                    <label for="action-8">审核</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-9" id="action-9" type="checkbox" value="ReAudit" />
+                    <label for="action-9">反审核</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-10" id="action-10" type="checkbox" value="Back" />
+                    <label for="action-10">备份</label>
+                </div>
+                <div class="checkbox checkbox-primary">
+                    <input name="action-11" id="action-11" type="checkbox" value="Upload" />
+                    <label for="action-11">上传</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">备注</label>
+            <div class="control-value">
+                <textarea v-model="menu.remark" name="remark" class="form-control" style="height: 100px;" maxlength="200" placeholder="添加备注内容"></textarea>
+            </div>
+        </div>
+    </form>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/switchery/switchery.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/wdtree/wdtree.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="form.js"></script>
+</body>
+</html>

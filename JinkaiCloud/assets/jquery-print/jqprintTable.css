@@ -1,0 +1,21 @@
+﻿@media print{@page{size: auto;margin: 0;}
+*{background: transparent !important;color: #333 !important;box-shadow: none !important;text-shadow: none !important;filter: 0 !important;-ms-filter: 0 !important;}
+html {margin: .5cm}
+body {margin: .5cm}
+thead{display: table-header-group;}
+tr, td, img{page-break-inside: avoid;}
+h2, h3{page-break-after: avoid;}
+p, h2, h3{orphans: 3;widows: 3;}
+.ui-print-title{font-size: 20px;text-align: center;width: 100%;color: #444;padding-bottom:15px;}
+.ui-table-print .grid-title{font-size: 22px;text-align: center;width: 100%;color: #444;}
+.ui-table-print .grid-subtitle{width: 100%;text-align: left;padding: 5px 0;}
+.ui-table-print{width: 100%;border-collapse: collapse;border-spacing: 0;font-size: 12px;border: 1px solid #666;}
+.ui-table-print th, .ui-table-print td{padding: 6px 2px!important;border: 1px solid;border-color: #666 !important;color: #444;font-weight: normal;}
+.ui-table-print th .ui-jqgrid-resize{display:none;}
+.ui-table-print .jqgrid-rownum{width: auto !important;}
+.ui-table-print .jqg-first-row-header{display: none;}
+.ui-table-print .ui-th-column-header{border-top: 1px solid !important;}
+.ui-area-print{width: 100% !important;border-collapse: collapse;border-spacing: 0;font-size: 12px;margin: 1px -1px 0 1px;border: 1px solid #666;}
+.ui-print{width: 100% !important;border-collapse: collapse;border-spacing: 0;font-size: 10px;margin:0px!important;padding:0px;overflow:auto;}
+.ui-print .form-group{border-color:#666;text-align:left;width:100%;min-height:32px;height:32px;}
+.ui-print .form-group .control-label{text-align:left;padding-right: 0px;min-width:60px!important;}}

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>智慧控申-信访案件</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .input-Wdate {
+            background: url(/assets/datePicker/datepicker.png) right 0 no-repeat #FFF;
+        }
+
+        .operating {
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="ajax-loader"></div>
+    <div class="main-body">
+        <div class="main-hd">
+            <div class="hd-search">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="input-group" style="width:180px;">
+                                <select id="caseSource" class="form-control p-r-lg input-sm">
+                                    <option value="">请选择案件来源</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group" style="width:150px;">
+                                <select id="caseType" class="form-control p-r-lg input-sm">
+                                    <option value="">请选择案件类型</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group" style="width:150px;">
+                                <select id="caseCategory" class="form-control p-r-lg input-sm">
+                                    <option value="">请选择案件种类</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group" style="width:180px;">
+                                <select id="channels" class="form-control p-r-lg input-sm">
+                                    <option value="">请选择来访渠道</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <div class="input-group">
+                                <input id="matchCon" type="text" class="form-control p-r-lg input-sm" maxlength="30" placeholder="请输入案件名称/当事人/接访人" autocomplete="off" style="width: 215px;" />
+                                <span class="input-group-btn">
+                                    <button id="search" class="btn btn-primary btn-sm" type="button">查询</button>
+                                </span>
+                            </div>
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <div id="timeHorizon" class="btn-group input-group search-panel">
+                                <a class="btn btn-default btn-sm" data-value="0">全部</a>
+                                <a class="btn btn-default btn-sm" data-value="1">近7天</a>
+                                <a class="btn btn-default btn-sm" data-value="2">近1月</a>
+                                <a class="btn btn-default btn-sm" data-value="3">近3月</a>
+                                <a class="btn btn-default btn-sm" data-value="4">自定义</a>
+                                <div class="dropdown-menu pull-right" style="min-width: 300px; min-height: 160px; top: 30px;">
+                                    <form class="form" style="padding-top: 10px; margin-right: 30px;" autocomplete="off">
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label">起始日期</label>
+                                            <div class="control-value">
+                                                <input id="txt_startTime" type="text" class="form-control input-Wdate" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label">结束日期</label>
+                                            <div class="control-value">
+                                                <input id="txt_endTime" type="text" class="form-control input-Wdate" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="form-button p-v-0 b-t-1 bg-white">
+                                        <a class="search btn btn-primary btn-sm m-r-xs"><i class="fa fa-search" style="width: inherit; margin-right: 5px; vertical-align: middle; margin-top: -1px;"></i>查询</a>
+                                        <a class="btn_close btn btn-default btn-sm m-r-xs"><i class="fa fa-close i-default" style="width: inherit; margin-right: 5px; vertical-align: middle; margin-top: -1px;"></i>关闭</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="hd-btn">
+                <div class="btn-group btn-defaultOpear">
+                    <a class="btn btn-primary btn-sm" onclick="jinkai.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+                </div>
+                <div class="btn-group btn-authorize">
+                    <a id="btn_add" authorize="yes" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>新建</a>
+                    <a id="btn_delete" authorize="yes" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i>删除</a>
+                    <a authorize="yes" id="btn_print" class="btn btn-default btn-sm"><i class="fa fa-print i-default m-r-xs"></i>打印</a>
+                    <a authorize="yes" id="btn_import" class="btn btn-default btn-sm dropdown-text">
+                        <i class="fa fa-upload i-default"></i>导入
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="imp dropdown-menu fz-sm pull-right">
+                        <li><a id="btn_import_excel">Excel</a></li>
+                        <!--<li><a id="btn_import_word">Word</a></li>-->
+                    </ul>
+                    <a authorize="yes" id="btn_export" class="btn btn-default btn-sm dropdown-text" data-toggle="dropdown">
+                        <i class="fa fa-sign-out i-default"></i>导出
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu fz-sm pull-right">
+                        <li><a id="btn_export_excel">Excel</a></li>
+                        <li><a id="btn_export_pdf">PDF</a></li>
+                    </ul>
+                    <!--<a id="btn_disable" authorize="yes" class="btn btn-default btn-sm"><i class="fa fa-eye-slash"></i>取消发布</a>
+                    <a id="btn_enable" authorize="yes" class="btn btn-default btn-sm"><i class="fa fa-eye"></i>发布</a>-->
+                </div>
+                <a id="hidExcel" target="_blank" href="javascript:void(0);" style="display: none"></a>
+                <a id="hidPdf" target="_blank" href="javascript:void(0);" style="display: none"></a>
+            </div>
+        </div>
+        <div class="main-bd">
+            <table id="gridTable"></table>
+        </div>
+    </div>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jqgrid/grid.js"></script>
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/datePicker/WdatePicker.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="list.js"></script>
+</body>
+</html>

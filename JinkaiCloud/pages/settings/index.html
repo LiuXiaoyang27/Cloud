@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <title>系统参数</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="ajax-loader"></div>
+    <div class="main-body">
+        <div class="main-hd">
+            <div class="nav-tabs-highlight" style="padding-top: 13px;">
+                <ul class="nav nav-tabs" style="border-bottom:none;">
+                    <li class="active"><a href="#tab-1" data-toggle="tab">根密钥</a></li>
+                    <!--<li><a href="#tab-2" data-toggle="tab">安全设置</a></li>-->
+                    <!--<li><a href="#tab-3" data-toggle="tab">邮箱设置</a></li>
+                    <li><a href="#tab-4" data-toggle="tab">微信设置</a></li>
+                    <li><a href="#tab-5" data-toggle="tab">授权激活</a></li>-->
+                </ul>
+            </div>
+        </div>
+
+        <div id="appForm" class="main-bd tab-content" style="overflow: auto;">
+            <div class="tab-pane in active fade" id="tab-1">
+                <form class="form" id="sysInfo" style="width: 70%;padding-top:20px;overflow: hidden;" autocomplete="off">
+                    <div class="form-group col-sm-12">
+                        <label class="control-label">root_key1<font>*</font></label>
+                        <div class="control-value">
+                            <input v-model="config.root_key1" name="root_key1" type="text" class="form-control required" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="control-label">root_key2<font>*</font></label>
+                        <div class="control-value">
+                            <input v-model="config.root_key2" name="root_key2" type="text" class="form-control required" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="control-label">root_key3</label>
+                        <div class="control-value">
+                            <input v-model="config.root_key3" name="root_key3" type="text" class="form-control required" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <div class="btn-authorize" style="margin-top: 15px;padding-bottom:15px; padding-left: 100px;">
+                            <a authorize="yes" id="btn_save" class="btn btn-primary btn-sm p-v-md"><i class="fa fa-save m-r-xs"></i>保 存</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <script src="/assets/switchery/switchery.min.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

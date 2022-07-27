@@ -1,0 +1,145 @@
+* {
+    -webkit-box-sizing: initial;
+    -moz-box-sizing: border-box;
+}
+
+html, body {
+    overflow: hidden;
+    background: #fff;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+}
+
+* {
+    text-decoration: none;
+    list-style: none;
+}
+
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.content {
+    margin: 20px auto;
+    margin-left: 30px !important;
+    width: 340px;
+}
+
+
+.row-item {
+    margin-bottom: 25px;
+    zoom: 1;
+    display: block;
+}
+
+    .row-item b {
+        font-size: 14px !important;
+    }
+
+    .row-item p {
+        padding: 0px;
+        font-size: 13px;
+    }
+
+    .row-item .download {
+        color: #0094ff;
+        text-decoration: underline;
+    }
+
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #ecf0f1;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 10px;
+}
+
+    .fixed-footer .btn {
+        font-size: 14px;
+        padding: 6px 15px;
+    }
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 12px;
+    line-height: 1.42857143;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-blue {
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+
+    .btn-blue:focus,
+    .btn-blue.focus {
+        color: #fff;
+        background-color: #096dd9;
+        border-color: #096dd9;
+    }
+
+    .btn-blue:hover {
+        color: #fff;
+        background-color: #40a9ff;
+        border-color: #1890ff;
+    }
+    .btn-default {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+
+.btn-default:focus,
+.btn-default.focus {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #8c8c8c;
+}
+
+.btn-default:hover {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+ .webuploader-container {
+            position: relative;
+            float: left;
+        }
+
+        .webuploader-pick {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background: #1890ff;
+            font-size: 14px;
+            padding: 6px 15px;
+            border: 1px solid transparent;
+            line-height: 1.42857143;
+            color: #fff;
+            text-align: center;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .webuploader-pick-hover {
+            background: #40a9ff;
+        }

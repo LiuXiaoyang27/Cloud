@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <title>网上信访-用户管理</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <style>
+        .ui-dis {
+            cursor: not-allowed !important;
+        }
+
+            .ui-dis:hover {
+                box-shadow: none !important;
+            }
+    </style>
+</head>
+<body>
+    <div class="main-body">
+        <div class="layout-left-md" style="width:230px">
+            <div class="widget-title p-l-sm b-b-1" style="height: 36px; line-height: 36px;">部门</div>
+            <div id="treeView"></div>
+        </div>
+        <div class="layout-center">
+            <div class="widget-title p-l-sm b-b-1" style="height: 36px; line-height: 36px;">用户列表</div>
+            <div class="main-hd">
+                <div class="hd-search">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="input-group">
+                                    <input id="txt_keyword" type="text" class="form-control p-r-lg input-sm" maxlength="20" placeholder="姓名/用户名/手机号" autocomplete="off" />
+                                    <span class="input-group-btn">
+                                        <button id="btn_search" class="btn btn-default btn-sm" type="button">查询</button></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="hd-btn btn-authorize">
+                    <div class="btn-group btn-defaultOpear">
+                        <a class="btn btn-primary btn-sm" id="reload" onclick="jinkai.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+                    </div>
+                    <div class="btn-group btn-defaultOpear">
+                        <a authorize="yes" id="btn_add" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>新建数据</a>
+                    </div>
+                    <div class="btn-operate" data-trigger="gridTable" style="top: 46px;">
+                        <ul class="nav nav-pills">
+                            <li class="first">已选中<span>1</span>项</li>
+                            <li><a authorize="yes" id="btn_edit"><i class="fa fa-pencil-square-o"></i>编辑</a></li>
+                            <li><a authorize="yes" id="btn_delete"><i class="fa fa-trash-o"></i>删除</a></li>
+                            <li class="split"></li>
+                            <li><a authorize="yes" id="btn_password"><i class="fa fa-key"></i>重置密码</a></li>
+                        </ul>
+                        <a class="close"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="main-bd">
+                <table id="gridTable"></table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/jqgrid/grid.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/wdtree/wdtree.js" ></script>
+    <script src="/scripts/common.js"></script>
+    <script src="list.js"></script>
+</body>
+</html>

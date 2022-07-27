@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户资料</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/Validate/validate.min.js"></script>
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <script src="/assets/select2/js/select2.full.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/wdtree/wdtree.js" type="text/javascript"></script>
+    <script src="/assets/switchery/switchery.min.js" type="text/javascript"></script>
+    <script src="/assets/datePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="/assets/jquery-md5/jquery.md5.js" type="text/javascript"></script>
+    <script src="/scripts/common.js" type="text/javascript"></script>
+    <script src="Index.js"></script>
+</head>
+<body>
+    <div class="ajax-loader"></div>
+    <div class="main-body">
+        <div class="main-bd" style="overflow: hidden;">
+            <div class="layout-left-md b-r-1">
+                <!--更换头像-->
+                <div class="p-l-sm p-t-sm">
+                    <div class="media-left">
+                        <div id="up-img-touch" class="avatar avatar-md">
+                            <img id="previewAvatar" class="img-responsive am-circle" src="/images/avatar.png" style="border-radius: 50%;">
+                            <input id="uploadAvatar" name="uploadAvatar" type="file">
+                            <div class="avatar-over">更换头像</div>
+                        </div>
+                    </div>
+                    <div class="media-body" style="vertical-align: middle;">
+                        <div class="btn-group dropup">
+                            <span id="user_name">超级管理员</span>
+                        </div>
+                    </div>
+                </div>
+                <!--区域分类-->
+                <ul class="profile-nav" style="padding-top: 6px;">
+                    <li class="active" data-id="user-panel">个人资料 </li>
+                    <li data-id="password-panel">修改密码</li>
+                    <li class="split"></li>
+                    <!--<li data-id="authorize-panel">系统权限</li>-->
+                    <li data-id="sysLog-panel">系统日志</li>
+                </ul>
+            </div>
+            <div class="layout-right-md" style="overflow: auto;">
+                <div id="user-panel" class="tab-pane">
+                    <form id="userForm" autocomplete="off">
+                        <div class="widget-header" style="margin-top: 2px;">
+                            <h4 class="widget-title">基本信息</h4>
+                        </div>
+                        <hr class="widget-separator b-t-1">
+                        <div class="widget-body" style="padding-top: 10px; padding-left: 30px;">
+                            <div class="form" style="width: 70%;">
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">账户</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.userAccount" name="userAccount" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">户名</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.Name" name="Name" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">手机号码</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.MobilePhone" name="MobilePhone" type="text" class="form-control isMobile" />
+                                    </div>
+                                </div>
+                                <!--<div class="form-group col-sm-12">
+                                    <label class="control-label">公司</label>
+                                    <div class="control-value">
+                                        <input disabled name="CompanyId" type="text" class="form-control" />
+                                    </div>
+                                </div>-->
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">部门</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.deptName" name="deptName" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                               <!-- <div class="form-group col-sm-12">
+                                    <label class="control-label">岗位</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.PositionId" name="PositionId" type="text" class="form-control" />
+                                    </div>
+                                </div>-->
+                                <!--<div class="form-group col-sm-12">
+                                    <label class="control-label">主管</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.ManagerId" name="ManagerId" type="text" class="form-control" />
+                                    </div>
+                                </div>-->
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">角色</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.roleName" name="roleName" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">注册时间</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.CreatorTime" name="CreatorTime" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">上次登录</label>
+                                    <div class="control-value">
+                                        <input disabled v-model="user.PrevLogTime" name="PrevLogTime" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12 p-b-lg">
+                                    <label class="control-label">备注信息</label>
+                                    <div class="control-value">
+                                        <textarea v-model="user.description" name="description" class="form-control" style="height: 80px;" maxlength="200"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-header">
+                            <h4 class="widget-title">扩展信息</h4>
+                        </div>
+                        <hr class="widget-separator b-t-1">
+                        <div class="widget-body" style="padding-top: 10px; padding-left: 30px;">
+                            <div class="form" style="width: 70%;">
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">性别</label>
+                                    <div class="control-value">
+                                <select v-select="user.gender" name="gender" class="form-control required">
+                                    <option value="">选择性别</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                    <option value="3">保密</option>
+                                </select>
+                            </div>
+                                    <!--<div class="control-value">
+                                        <div style="padding-top: 8px;">
+                                            <div class="radio radio-primary">
+                                                <input v-model="user.gender" id="Gender-1" name="Gender" type="radio" value="1" checked="checked"><label for="Gender-1">男</label>
+                                            </div>
+                                            <div class="radio radio-primary">
+                                                <input v-model="user.gender" id="Gender-2" name="Gender" type="radio" value="2"><label for="Gender-2">女</label>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">民族</label>
+                                    <div class="control-value">
+                                        <select v-select="user.nation" name="nation" class="form-control">
+                                            <option value="">选择民族</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">籍贯</label>
+                                    <div class="control-value">
+                                        <input v-model="user.nativeplace" name="nativeplace" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">入职日期</label>
+                                    <div class="control-value">
+                                        <input v-model="user.entryDate" name="entryDate" id="entryDate" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">证件类型</label>
+                                    <div class="control-value">
+                                        <select v-select="user.certificatesType" name="certificatesType" class="form-control">
+                                            <option value="">选择类型</option>
+                                            <option value="1">身份证</option>
+                                            <option value="2">驾驶证</option>
+                                            <option value="3">护照</option>
+                                            <option value="4">军人证</option>
+                                            <option value="5">港澳身份证</option>
+                                            <option value="6">台胞证</option>
+                                            <option value="7">其它</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">证件号码</label>
+                                    <div class="control-value">
+                                        <input v-model="user.certificatesNumber" name="certificatesNumber" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">文化程度</label>
+                                    <div class="control-value">
+                                        <select v-select="user.education" name="education" class="form-control">
+                                            <option value="">选择学历</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">出生年月</label>
+                                    <div class="control-value">
+                                        <input v-model="user.birthday" id="birthday" name="birthday" type="text" class="form-control" placeholder="选择年月" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">办公电话</label>
+                                    <div class="control-value">
+                                        <input v-model="user.telephone" name="telephone" type="text" class="form-control isPhone" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">办公座机</label>
+                                    <div class="control-value">
+                                        <input v-model="user.landLine" name="landLine" type="text" class="form-control isTel" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">电子邮箱</label>
+                                    <div class="control-value">
+                                        <input v-model="user.email" name="email" type="text" class="form-control email" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">通讯地址</label>
+                                    <div class="control-value">
+                                        <input v-model="user.postalAddress" name="postalAddress" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12" style="padding-left: 70px; padding-bottom: 10px;">
+                                    <a id="btn_save_user" class="btn btn-primary btn-sm p-v-md"><i class="fa fa-save m-r-xs"></i>保 存</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="password-panel" class="tab-pane" style="display: none;">
+                    <form id="passwordForm" autocomplete="off">
+                        <div class="widget-header" style="margin-top: 2px;">
+                            <h4 class="widget-title">修改密码</h4>
+                        </div>
+                        <hr class="widget-separator b-t-1">
+                        <div class="widget-body" style="padding-top: 10px; padding-left: 30px;">
+                            <div class="form" style="width: 70%;">
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">旧密码</label>
+                                    <div class="control-value">
+                                        <input name="txt_OldPassword" type="password" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">新密码</label>
+                                    <div class="control-value">
+                                        <input name="txt_NewPassword" type="password" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">重复密码</label>
+                                    <div class="control-value">
+                                        <input name="txt_RedoNewPassword" type="password" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">验证码</label>
+                                    <div class="control-value">
+                                        <div style="float: left;">
+                                            <input name="txt_Code" maxlength="4" type="text" class="form-control required" style="width: 120px;" />
+                                        </div>
+                                        <div style="float: left; width: 150px;">
+                                            <img src="/ajax/verify_code.ashx" id="codeImage" onclick="this.src=this.src + '?'" width="100" height="30" alt="点击切换验证码" title="点击切换验证码" style="cursor: pointer; padding-top: 3px; padding-left: 5px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12" style="padding-left: 70px;">
+                                    <a id="btn_save_password" class="btn btn-primary btn-sm p-v-md"><i class="fa fa-save m-r-xs"></i>保 存</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="sysLog-panel" class="tab-pane" style="display: none; background-color: #fff; height: 100%; overflow: hidden;">
+                    <iframe width="100%" height="100%" frameborder="0" scrolling="yes"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

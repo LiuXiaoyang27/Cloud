@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>智慧控申-用户登录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="scripts/login/login.css" rel="stylesheet" />
+</head>
+<body class="login_body">
+    <canvas id="particles" class="background"></canvas>
+    <form id="login" method="post" onsubmit="return sumbitLogin()">
+        <div class="login_box">
+            <div class="login_list" style="height:420px">
+                <div class="login_logo">
+                    <img src="logo.jpg"/>
+                </div>
+                <div style="margin-top:-90px;">
+                   
+                    <div>
+                        <input type="text" class="login-input" value="" id="username" placeholder="管理员账号" />
+                        <input type="password" class="login-input" id="password" value="" placeholder="管理员密码" />
+           
+                        <div style="float: left;">
+                            <input type="text" id="txtCode" name="txtCode" class="login-input" style="width:180px;float:left" 
+                                    placeholder="请输入验证码" />
+                            <img src="/ajax/verify_code.ashx" id="codeImage" onclick="this.src=this.src + '?'" style="height:40px;float:left;margin-left:5px;" />
+                        </div>
+
+                        
+                        <input type="button" class="login-btn" id="btnLogin" style="margin-top:20px;" onclick="sumbitLogin()" value="登 录" />
+                    </div>
+                    <div class="login-tips">
+                        <p id="msgtip" style="color:#ff0000"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </form>
+
+    <!--版权信息-->
+    <div class="copy_right">
+        <p>
+            &copy; 2022&nbsp;大连金开科技有限公司
+        </p>
+    </div>
+
+    <!--加载框-->
+    <div class="loading">
+        <img src="scripts/login/loading.gif" style="position: absolute;  top: 50%; left: 50%; margin: -24px 0 0 -30px;" alt="请稍后...">
+    </div>
+
+    <script type="text/javascript" src="/assets/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/jquery-md5/jquery.md5.js"></script>
+    <script type="text/javascript" src="/assets/particles/particles.min.js"></script>
+    <script type="text/javascript" src="scripts/login/login.js"></script>
+
+    <script>
+        Particles.init({
+            selector: '#particles',
+            color: "#fff"
+        });
+    </script>
+</body>
+</html>

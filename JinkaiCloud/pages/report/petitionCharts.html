@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <title>网上信访-统计报表</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <style>
+        .input-Wdate {
+            background: url(/assets/datePicker/datepicker.png) right 0 no-repeat #FFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-body">
+        <div class="layout-center">
+            <div class="widget-title p-l-sm b-b-1" style="height: 36px; line-height: 36px;">信访案件统计</div>
+            <div class="main-hd">
+                <div class="hd-search">
+                    <table>
+                        <tr>
+                            <td style="display:none;">
+                                <div class="input-group">
+                                    <input id="matchCon" type="text" class="form-control p-r-lg input-sm" maxlength="30" placeholder="请输入案件名称/当事人/接访人" autocomplete="off" style="width: 215px;" />
+                                    <span class="input-group-btn">
+                                        <button id="search" class="btn btn-primary btn-sm" type="button">查询</button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <div id="timeHorizon" class="btn-group input-group search-panel">
+                                    <a class="btn btn-default btn-sm" data-value="0">全部</a>
+                                    <a class="btn btn-default btn-sm" data-value="1">近1月</a>
+                                    <a class="btn btn-default btn-sm" data-value="2">近3月</a>
+                                    <a class="btn btn-default btn-sm" data-value="3">近半年</a>
+                                    <a class="btn btn-default btn-sm" data-value="4">自定义</a>
+                                    <div class="dropdown-menu pull-right" style="min-width: 300px; min-height: 160px; top: 30px;">
+                                        <form class="form" style="padding-top: 10px; margin-right: 30px;" autocomplete="off">
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label">起始日期</label>
+                                                <div class="control-value">
+                                                    <input id="txt_startTime" type="text" class="form-control input-Wdate" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label">结束日期</label>
+                                                <div class="control-value">
+                                                    <input id="txt_endTime" type="text" class="form-control input-Wdate" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="form-button p-v-0 b-t-1 bg-white">
+                                            <a class="search btn btn-primary btn-sm m-r-xs"><i class="fa fa-search" style="width: inherit; margin-right: 5px; vertical-align: middle; margin-top: -1px;"></i>查询</a>
+                                            <a class="btn_close btn btn-default btn-sm m-r-xs"><i class="fa fa-close i-default" style="width: inherit; margin-right: 5px; vertical-align: middle; margin-top: -1px;"></i>关闭</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="hd-btn btn-authorize">
+                    <div class="btn-group btn-defaultOpear">
+                        <a class="btn btn-primary btn-sm" id="reload" onclick="jinkai.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="main-bd">
+                <div id="echarts" style="height:750px;margin-top:30px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/echarts/echarts.min.js"></script>
+    <script src="/assets/datePicker/WdatePicker.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script>
+        (function ($) {
+            $.page = {
+                myChart: null,
+                option: null,
+                queryJson: {
+                    beginDate: "",
+                    endDate: ""
+                },
+                init: function () {
+                    $(".main-bd").height($(window).height() - 20);
+                    $(window).resize(function () {
+                        $(".main-bd").height($(window).height() - 20);
+                    });
+                    jinkai.ajax({
+                        url: jinkai.toUrl("/ajax/petition.ashx?action=charts"),
+                        param: $.page.queryJson,
+                        success: function (result) {
+                            var data = result.data;
+                            if (!$.page.myChart) {
+                                $.page.chart(data.pie);
+                            } else {
+                                $.page.refreshChartData(data.pie);
+                            }
+                            
+                        }
+                    });
+
+                },
+                search: function () {
+                    //起始日期
+                    $("#txt_startTime").datePicker({ maxDate: '#F{$dp.$D(\'txt_endTime\') || \'%y-%M-%d\'}' });
+                    //结束日期
+                    $("#txt_endTime").datePicker({ minDate: "#F{$dp.$D(\'txt_startTime\')}", maxDate: '%y-%M-%d' });
+
+
+                    $("#search").click(function () {
+                        $.page.queryJson.beginDate = $("#txt_startTime").val();
+                        $.page.queryJson.endDate = $("#txt_endTime").val();
+                        $.page.init();
+                        //$.page.queryJson.beginDate = "";
+                        //$.page.queryJson.endDate = "";
+                    });
+                    //自定义查询
+                    $(".search-panel > a.btn-default").click(function () {
+                        $("#timeHorizon a.btn-default").removeClass("active");
+                        var value = $(this).addClass("active").attr("data-value");
+                        switch (value) {
+                            case "1":
+                                $("#txt_startTime").val(jinkai.getDate("yyyy-MM-dd", "m", -1));
+                                $("#txt_endTime").val(jinkai.getDate("yyyy-MM-dd"));
+                                $("#search").trigger("click");
+                                break;
+                            case "2":
+                                $("#txt_startTime").val(jinkai.getDate("yyyy-MM-dd", "m", -3));
+                                $("#txt_endTime").val(jinkai.getDate("yyyy-MM-dd"));
+                                $("#search").trigger("click");
+                                break;
+                            case "3":
+                                $("#txt_startTime").val(jinkai.getDate("yyyy-MM-dd", "m", -6));
+                                $("#txt_endTime").val(jinkai.getDate("yyyy-MM-dd"));
+                                $("#search").trigger("click");
+                                break;
+                            case "4":
+                                $("#timeHorizon .dropdown-menu").show();
+                                $("#timeHorizon a.search").on("click", function () {
+                                    $("#search").trigger("click");
+                                    $("#timeHorizon .dropdown-menu").hide();
+                                });
+                                $("#timeHorizon a.btn_close").on("click", function () {
+                                    $("#timeHorizon .dropdown-menu").hide();
+                                });
+                                break;
+                            default:
+                                $("#txt_startTime").val("");
+                                $("#txt_endTime").val("");
+                                $("#search").trigger("click");
+                                break;
+                        }
+                    });
+
+                },
+                chart: function (data) {
+                    $.page.myChart = echarts.init($("#echarts")[0]);
+                    $.page.option = {
+                        title: {
+                            text: '信访案件统计',
+                            subtext: '各案件来源占比图',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left'
+                        },
+                        series: [
+                          {
+                              name: '信访案件数量',
+                              type: 'pie',
+                              radius: '50%',
+                              data: data,
+                              emphasis: {
+                                  itemStyle: {
+                                      shadowBlur: 10,
+                                      shadowOffsetX: 0,
+                                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                  }
+                              },
+                              itemStyle: {
+                                  normal: {
+                                      label: {
+                                          show: true,
+                                          formatter: '{b}:{c}({d}%)'
+                                      },
+                                      labelLine: {
+                                          show: true
+                                      }
+                                  }
+                              }
+                          }
+                        ]
+                    };
+                    $.page.myChart.setOption($.page.option);
+                },
+                refreshChartData: function (data) {
+                    var chart = echarts.getInstanceByDom(document.getElementById("echarts"));
+                    var option = chart.getOption();
+                    option.series[0].data = data;
+                    chart.setOption(option);
+                }
+            }
+            $(function () {
+                $.page.search();
+                $.page.init();
+            });
+        })(jQuery);
+
+    </script>
+</body>
+</html>
