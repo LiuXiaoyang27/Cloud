@@ -81,7 +81,7 @@
     <Content Include="ajax\petitionRules.ashx" />
     <Content Include="ajax\upload.ashx" />
     <Content Include="ajax\oldPetition.ashx" />
-    <None Include="Properties\PublishProfiles\JinkaiCloud.pubxml" />
+    <None Include="Properties\PublishProfiles\Cloud.pubxml" />
     <Content Include="data\upload\image\20210914\6376721331328260012279162.png" />
     <Content Include="images\close.png" />
     <Content Include="images\logo-notification-untitled.png" />

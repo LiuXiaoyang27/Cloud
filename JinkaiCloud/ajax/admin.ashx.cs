@@ -1,5 +1,6 @@
 ﻿using Common;
 using Controller;
+using Cloud.ajax;
 using Model;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.ajax
+namespace Cloud.ajax
 {
     /// <summary>
     /// 管理员以及权限设置的摘要说明
@@ -17,7 +18,7 @@ namespace JinkaiCloud.ajax
     public class admin : IHttpHandler, IRequiresSessionState
     {
         // 保存用户信息
-        private Model.Admin admins = null;
+        private Admin admins = null;
         public void ProcessRequest(HttpContext context)
         {
             //检查管理员是否登录
@@ -130,7 +131,7 @@ namespace JinkaiCloud.ajax
                 return JsonHelp.ErrorJson("请求参数错误");
             }
             string errMsg = "";
-            Model.Admin model = GetRequestModel(context, ref errMsg);
+            Admin model = GetRequestModel(context, ref errMsg);
             if (model == null)
             {
                 return JsonHelp.ErrorJson(errMsg);
@@ -174,7 +175,7 @@ namespace JinkaiCloud.ajax
                 return JsonHelp.ErrorJson("请求参数错误");
             }
             AdminController controller = new AdminController();
-            Model.Admin model = controller.GetUserModel(id);
+            Admin model = controller.GetUserModel(id);
             if (model == null)
             {
                 return JsonHelp.ErrorJson("不存在该人员信息");
@@ -218,7 +219,7 @@ namespace JinkaiCloud.ajax
         public JArray GetUserTreeView()
         {
             AdminController controller = new AdminController();
-            List<Dept> listOrg = new DeptController().GetListModel();
+            List<Model.Dept> listOrg = new DeptController().GetListModel();
             List<Admin> listUsers = GetListModel(" and t1.status = 1");
             JArray result = controller.GetUserTreeView(listOrg, listUsers);
             return result;
@@ -234,7 +235,7 @@ namespace JinkaiCloud.ajax
                 strWhere += " and t1.id <> '" + uid + "'";
             }
             AdminController controller = new AdminController();
-            List<Dept> listOrg = new DeptController().GetListModel();
+            List<Model.Dept> listOrg = new DeptController().GetListModel();
             List<Admin> listUsers = GetListModel(strWhere);
             JArray result = controller.GetUserTreeView(listOrg, listUsers);
             return JsonHelp.SuccessJson(result); ;
@@ -262,7 +263,7 @@ namespace JinkaiCloud.ajax
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JObject GetUserProvider(Model.Admin model)
+        public JObject GetUserProvider(Admin model)
         {
             JObject userProvider = new JObject();
             userProvider["userAccount"] = model.username;
@@ -317,7 +318,7 @@ namespace JinkaiCloud.ajax
         {
 
             //获得当前登录管理员信息
-            Model.Admin adminModel = new ManagePage().GetAdminInfo();
+            Admin adminModel = new ManagePage().GetAdminInfo();
             string roleId = adminModel.roleId;
             int roleType = adminModel.roleType;
 
@@ -405,7 +406,7 @@ namespace JinkaiCloud.ajax
                 }
                 strWhere += " and ( t1.DEPTID in( " + ids.Substring(1) + "))";
             }
-            Model.Admin userInfo = new ManagePage().GetAdminInfo();
+            Admin userInfo = new ManagePage().GetAdminInfo();
             int records;
             string filedOrder = " t1.id asc ";
             AdminController controller = new AdminController();
@@ -451,13 +452,13 @@ namespace JinkaiCloud.ajax
                 return JsonHelp.ErrorJson("权限不足");
             }
             string errMsg = "";
-            Model.Admin model = GetRequestModel(context, ref errMsg);
+            Admin model = GetRequestModel(context, ref errMsg);
             if (model == null)
             {
                 return JsonHelp.ErrorJson(errMsg);
             }
             AdminController controller = new AdminController();
-            Model.Admin userInfo = new ManagePage().GetAdminInfo();
+            Admin userInfo = new ManagePage().GetAdminInfo();
             model.CREATORTIME = DateTime.Now;
             model.creatorUserId = admins.id;
             bool result = controller.Add(model, userInfo.id);
@@ -492,7 +493,7 @@ namespace JinkaiCloud.ajax
             {
                 strWhere += " and (t1.id <> '" + id + "') ";
             }
-            Model.Admin admin = controller.GetModel(strWhere);
+            Admin admin = controller.GetModel(strWhere);
             if (admin != null)
             {
                 return JsonHelp.SuccessJson(true);
@@ -524,7 +525,7 @@ namespace JinkaiCloud.ajax
             {
                 strWhere += " and (t1.id <> '" + id + "') ";
             }
-            Model.Admin admin = controller.GetModel(strWhere);
+            Admin admin = controller.GetModel(strWhere);
             if (admin != null)
             {
                 return JsonHelp.SuccessJson(true);
@@ -561,7 +562,7 @@ namespace JinkaiCloud.ajax
             }
             else
             {
-                Model.Admin saveUser = (Model.Admin)obj;
+                Admin saveUser = (Admin)obj;
                 uid = saveUser.id;
             }
 
@@ -605,7 +606,7 @@ namespace JinkaiCloud.ajax
             }
             AdminController controller = new AdminController();
             bool result = controller.Disable(id, int.Parse(status));
-            Model.Admin model = controller.GetUserModel(id);
+            Admin model = controller.GetUserModel(id);
             if (result)
             {
                 // 添加操作日志
@@ -641,13 +642,13 @@ namespace JinkaiCloud.ajax
             }
             AdminController controller = new AdminController();
             // 获得用户信息
-            Model.Admin userInfo = controller.GetModel(" and t1.id = '" + userId + "'");
+            Admin userInfo = controller.GetModel(" and t1.id = '" + userId + "'");
             if (userInfo == null)
             {
                 return JsonHelp.ErrorJson("不存在该用户");
             }
             // admin类赋值操作
-            Model.Admin model = new Model.Admin();
+            Admin model = new Admin();
             model.userpwd = Utils.MD5("123456").ToLower();
             model.id = userId;
             model.modifyTime = DateTime.Now;
@@ -680,7 +681,7 @@ namespace JinkaiCloud.ajax
             }
             else
             {
-                Model.Admin saveUser = (Model.Admin)obj;
+                Admin saveUser = (Admin)obj;
                 uid = saveUser.id;
             }
 
@@ -710,13 +711,13 @@ namespace JinkaiCloud.ajax
             }
             AdminController controller = new AdminController();
             // 获得用户信息
-            Model.Admin userInfo = controller.GetModel(" and t1.id = " + uid);
+            Admin userInfo = controller.GetModel(" and t1.id = " + uid);
             if (!userInfo.userpwd.ToLower().Equals(oldPassword.ToLower()))
             {
                 return JsonHelp.ErrorJson("旧密码不正确");
             }
             // admin类赋值操作
-            Model.Admin model = new Model.Admin();
+            Admin model = new Admin();
             model.userpwd = password.ToLower();
             model.id = uid;
             model.modifyTime = DateTime.Now;
@@ -755,7 +756,7 @@ namespace JinkaiCloud.ajax
 
             AdminController controller = new AdminController();
             // 判断是否存在该记录
-            Model.Admin model = controller.GetUserModel(strId);
+            Admin model = controller.GetUserModel(strId);
             if (model == null)
             {
                 return JsonHelp.ErrorJson("数据不存在，刷新重试");
@@ -788,7 +789,7 @@ namespace JinkaiCloud.ajax
         private string UpdateLoginUser(HttpContext context)
         {
             string errMsg = "";
-            Model.Admin model = GetRequestModel(context, ref errMsg);
+            Admin model = GetRequestModel(context, ref errMsg);
             if (model == null)
             {
                 return JsonHelp.ErrorJson(errMsg);
@@ -814,7 +815,7 @@ namespace JinkaiCloud.ajax
         /// <param name="context">请求上下文</param>
         /// <param name="errMsg">错误信息</param>
         /// <returns></returns>
-        public Model.Admin GetRequestModel(HttpContext context, ref string errMsg)
+        public Admin GetRequestModel(HttpContext context, ref string errMsg)
         {
             string realName = Utils.UrlDecode(context.Request["Name"]);
             string userName = Utils.UrlDecode(context.Request["UserName"]);
@@ -906,20 +907,20 @@ namespace JinkaiCloud.ajax
                 whereMobile = " and ( t1.mobile= '" + userMobile + "'  and t1.id <> '" + id + "')";
             }
 
-            Model.Admin checkName = controller.GetModel(whereUserName);
+            Admin checkName = controller.GetModel(whereUserName);
             if (checkName != null)
             {
                 errMsg = "用户名已经存在";
                 return null;
             }
-            Model.Admin checkMobile = controller.GetModel(whereMobile);
+            Admin checkMobile = controller.GetModel(whereMobile);
             if (checkMobile != null)
             {
                 errMsg = "手机号码已被使用";
                 return null;
             }
             // admin类赋值操作
-            Model.Admin model = new Model.Admin();
+            Admin model = new Admin();
             model.name = realName;
             model.username = userName;
             model.mobile = userMobile;

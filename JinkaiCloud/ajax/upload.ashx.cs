@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.ajax
+namespace Cloud.ajax
 {
     /// <summary>
     /// 上传文件的接口 的摘要说明

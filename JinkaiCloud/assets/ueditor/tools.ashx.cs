@@ -1,8 +1,8 @@
-﻿using JinkaiCloud.ajax;
+﻿using Cloud.ajax;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.plugins.ueditor
+namespace Cloud.plugins.ueditor
 {
     /// <summary>
     /// tools 的摘要说明TODO

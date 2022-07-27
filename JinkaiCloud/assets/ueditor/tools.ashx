@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="tools.ashx.cs" Class="JinkaiCloud.plugins.ueditor.tools" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="tools.ashx.cs" Class="Cloud.plugins.ueditor.tools" %>

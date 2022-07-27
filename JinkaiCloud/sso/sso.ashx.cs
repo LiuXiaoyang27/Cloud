@@ -1,5 +1,5 @@
 ﻿using Common;
-using JinkaiCloud.ajax;
+using Cloud.ajax;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.sso
+namespace Cloud.sso
 {
     /// <summary>
     /// Summary description for sso

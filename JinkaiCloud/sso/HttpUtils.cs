@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 
-namespace JinkaiCloud.sso
+namespace Cloud.sso
 {
     public class HttpUtils
     {

@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.ajax
+namespace Cloud.ajax
 {
     /// <summary>
     /// 信访案件

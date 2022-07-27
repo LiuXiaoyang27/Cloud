@@ -9,7 +9,7 @@ using System.IO;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.ajax
+namespace Cloud.ajax
 {
     /// <summary>
     /// 系统设置相关接口 的摘要说明

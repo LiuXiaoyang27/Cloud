@@ -4,7 +4,7 @@ using System;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.ajax
+namespace Cloud.ajax
 {
     /// <summary>
     /// 管理员登陆的摘要说明

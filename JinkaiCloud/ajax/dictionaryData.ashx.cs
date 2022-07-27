@@ -8,7 +8,7 @@ using System.Data;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.ajax
+namespace Cloud.ajax
 {
     /// <summary>
     /// 类别信息的摘要说明

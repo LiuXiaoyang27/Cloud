@@ -1,19 +1,19 @@
 ﻿using Business;
 using Common;
 using Controller;
-using Model;
+using Cloud.ajax;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Web;
 using System.Web.SessionState;
 
-namespace JinkaiCloud.ajax
+namespace Cloud.ajax
 {
     /// <summary>
     /// 部门信息的摘要说明
     /// </summary>
-    public class dept : IHttpHandler, IRequiresSessionState
+    public class Dept : IHttpHandler, IRequiresSessionState
     {
         // 频道别名
         private static string module = "dept";
@@ -103,7 +103,7 @@ namespace JinkaiCloud.ajax
                 strWhere += " AND FULLNAME like '%" + skey + "%' or ENCODE like '%" + skey + "%'";
             }
             DataTable data = controller.GetList(strWhere);
-            List<Dept> list = new List<Dept>();
+            List<Model.Dept> list = new List<Model.Dept>();
             foreach (DataRow dataRow in data.Rows)
             {
                 list.Add(bll.DataRowToModel(dataRow));
@@ -130,7 +130,7 @@ namespace JinkaiCloud.ajax
             //{
             //    list.Add(bll.DataRowToModel(dataRow));
             //}
-            List<Dept> list = controller.GetListModel(strWhere);
+            List<Model.Dept> list = controller.GetListModel(strWhere);
             //string type = context.Request["type"];
 
             //if (string.IsNullOrEmpty(type))
@@ -244,7 +244,7 @@ namespace JinkaiCloud.ajax
                 return JsonHelp.ErrorJson("请求参数错误");
             }
             // 判断部门是否存在
-            Dept model = controller.GetModel(id);
+            Model.Dept model = controller.GetModel(id);
             if (model == null)
             {
                 return JsonHelp.ErrorJson("部门不存在，刷新重试");
@@ -275,7 +275,7 @@ namespace JinkaiCloud.ajax
                 return JsonHelp.ErrorJson("权限不足");
             }
             DeptController controller = new DeptController();
-            Dept model;
+            Model.Dept model;
             string errMsg = "";
             model = GetRequestModel(context, ref errMsg);
             if (model == null)
@@ -304,9 +304,9 @@ namespace JinkaiCloud.ajax
         /// <param name="context"></param>
         /// <param name="errMsg"></param>
         /// <returns></returns>
-        public Dept GetRequestModel(HttpContext context, ref string errMsg)
+        public Model.Dept GetRequestModel(HttpContext context, ref string errMsg)
         {
-            Dept model = new Dept();
+            Model.Dept model = new Model.Dept();
             string parentId = Utils.UrlDecode(context.Request["parentId"]);
             string fullName = Utils.UrlDecode(context.Request["fullName"]);
             string enCode = Utils.UrlDecode(context.Request["enCode"]);
@@ -421,12 +421,12 @@ namespace JinkaiCloud.ajax
             }
             DeptController controller = new DeptController();
             string errMsg = "";
-            Dept model = GetRequestModel(context, ref errMsg);
+            Model.Dept model = GetRequestModel(context, ref errMsg);
             if (model == null)
             {
                 return JsonHelp.ErrorJson(errMsg);
             }
-            Dept temp = controller.GetModel(id);
+            Model.Dept temp = controller.GetModel(id);
             if (temp == null)
             {
                 return JsonHelp.ErrorJson("不存在该部门信息");
@@ -453,7 +453,7 @@ namespace JinkaiCloud.ajax
         public string First(HttpContext context)
         {
             DeptController controller = new DeptController();
-            Dept model = new Dept();
+            Model.Dept model = new Model.Dept();
             string id = context.Request["id"];
             model.ID = id;
             model.LASTMODIFYUSERID = admin.id;
@@ -467,7 +467,7 @@ namespace JinkaiCloud.ajax
         public string Next(HttpContext context)
         {
             DeptController controller = new DeptController();
-            Dept model = new Dept();
+            Model.Dept model = new Model.Dept();
             string id = context.Request["id"];
             model.ID = id;
             model.LASTMODIFYUSERID = admin.id;
