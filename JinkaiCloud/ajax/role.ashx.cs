@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 
-namespace Cloud.ajax
+namespace JinkaiCloud.ajax
 {
     /// <summary>
     ///  菜单管理接口

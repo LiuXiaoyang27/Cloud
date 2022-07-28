@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Web;
 using System.Web.SessionState;
 
-namespace Cloud.ajax
+namespace JinkaiCloud.ajax
 {
     /// <summary>
     /// 验证码生成类

@@ -1,13 +1,13 @@
 ﻿using Common;
 using Controller;
-using Cloud.ajax;
+using JinkaiCloud.ajax;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Data;
 using System.Web;
 using System.Web.SessionState;
 
-namespace Cloud.ajax
+namespace JinkaiCloud.ajax
 {
     /// <summary>
     /// 日志信息的摘要说明

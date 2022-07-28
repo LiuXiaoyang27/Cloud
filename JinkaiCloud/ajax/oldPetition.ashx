@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="oldPetition.ashx.cs" Class="Cloud.ajax.oldPetition" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="oldPetition.ashx.cs" Class="JinkaiCloud.ajax.oldPetition" %>

@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="role.ashx.cs" Class="Cloud.ajax.role" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="role.ashx.cs" Class="JinkaiCloud.ajax.role" %>

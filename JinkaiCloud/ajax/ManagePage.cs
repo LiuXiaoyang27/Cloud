@@ -2,7 +2,7 @@
 using Controller;
 using System.Collections.Generic;
 
-namespace Cloud.ajax
+namespace JinkaiCloud.ajax
 {
     public class ManagePage : System.Web.UI.Page
     {
