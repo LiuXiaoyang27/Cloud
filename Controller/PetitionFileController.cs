@@ -54,22 +54,22 @@ namespace Controller
                 {
                     if (string.IsNullOrEmpty(deleteIds))
                     {
-                        deleteIds = model.id + "";
+                        deleteIds = "'" + model.id + "'";
                     }
                     else
                     {
-                        deleteIds += "," + model.id;
+                        deleteIds += ",'" + model.id + "'";
                     }
                 }
                 else
                 {
                     if (string.IsNullOrEmpty(updateIds))
                     {
-                        updateIds = model.id + "";
+                        updateIds = "'" + model.id + "'";
                     }
                     else
                     {
-                        updateIds += "," + model.id;
+                        updateIds += ",'" + model.id + "'";
                     }
                 }
             }
@@ -90,6 +90,16 @@ namespace Controller
         public bool Delete(string ids)
         {
             return dal.Delete(ids);
+        }
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public bool DeleteBatch(List<string> ids)
+        {
+            return dal.DeleteBatch(ids);
         }
     }
 }

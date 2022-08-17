@@ -36,10 +36,6 @@ namespace Model
         /// </summary>
         public string ENCODE { get; set; }
         /// <summary>
-        /// 类别
-        /// </summary>
-        public string CATEGORY { get; set; }
-        /// <summary>
         /// 排列码
         /// </summary>
         public int SORTCODE { get; set; }
@@ -87,10 +83,6 @@ namespace Model
         /// 固话
         /// </summary>
         public string TEL { get; set; }
-        /// <summary>
-        /// 属性JSON
-        /// </summary>
-        public string PROPERTYJSON { get; set; }
 
     }
 }

@@ -897,8 +897,8 @@ namespace JinkaiCloud.ajax
 
             if (string.IsNullOrEmpty(id))
             {
-                whereUserName = " and (username='" + userName + "')";
-                whereMobile = " and ( mobile= '" + userMobile + "')";
+                whereUserName = " and (t1.username='" + userName + "')";
+                whereMobile = " and ( t1.mobile= '" + userMobile + "')";
             }
             else
             {

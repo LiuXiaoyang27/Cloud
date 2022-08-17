@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <title>智慧控申-陈年旧案</title>
+    <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/base-ui.css" rel="stylesheet" />
+    <link href="/assets/jqgrid/jqgrid.css" rel="stylesheet" />
+    <link href="/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="/assets/webuploader/webuploader.css" rel="stylesheet" />
+    <link href="upload/style.css" rel="stylesheet" />
+    <style type="text/css">
+        .date {
+            background: url(/assets/datePicker/datepicker.png) right 0 no-repeat #FFF;
+        }
+    </style>
+</head>
+<body style="background-color: #fff;overflow-y: auto;">
+    <div class="ajax-loader"></div>
+    <div class="main-body" style="padding:0px;">
+        <div class="nav-tabs-highlight" style="margin-top:10px;">
+            <ul class="nav nav-tabs" style="border-bottom:2px solid #188ae2">
+                <li class="active" style="margin-left:10px;"><a href="#tab-1" data-toggle="tab">基础资料</a></li>
+            </ul>
+        </div>
+
+
+        <div class="main-bd tab-content" style="overflow: auto;">
+            <!-- 基础资料 -->
+            <div class="tab-pane in active fade" id="tab-1">
+
+                <!-- 操作手册 -->
+
+                <div class="panel-body">
+                    <div class="container">
+                        <div id="uploaderPdf" name="pdfJson">
+                            <div class="queueList">
+                                <div class="placeholder">
+                                    <div id="filePickerPdf"></div>
+                                    <p>或将文件拖到这里，文件不能大于20M</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display:none;">
+                                
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="filePickerPdf2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.js"></script>
+    <script src="/assets/pace/pace.min.js"></script>
+    <script src="/assets/vue/vue.min.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+    <script src="/assets/webuploader/webuploader.js"></script>
+    <script src="/scripts/common.js"></script>
+    <script src="upload/uploader.js"></script>
+    <script src="list1.js"></script>
+</body>
+</html>

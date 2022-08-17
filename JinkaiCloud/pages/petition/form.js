@@ -6,11 +6,11 @@
     //请求地址
     var requestUrl = "/ajax/petition.ashx";
 
-    var editor;
     $.page = {
         vue: null,
         fileList: {}, // 保存上传文件信息 
         listDocs: [],
+        //pdfTab: "",//上传文件页面
         init: function () {
             $.page.vue = jinkai.vueInit({ el: "#appForm", data: { petition: {} } })
             $.page.bind();
@@ -35,6 +35,19 @@
                 data: jinkai.getData().dictionaryData("channels"),
                 height: 300
             });
+
+            //切换到上传tab页时，再调用上传插件（ps：页面加载时调用插件无效）
+            //$(".nav-tabs a").on("shown.bs.tab", function (e) {
+            //    var activeTab = $(e.target).text();
+            //    // var previousTab = $(e.relatedTarget).text();前一个tab
+            //    if (activeTab == "文件资料") {
+            //        if ($.page.pdfTab == "") {
+            //            $.page.pdfTab = activeTab;
+            //            $.thisPage.uploaderPdf = $("[name='fileJson']").uplodeFile();
+            //        }
+            //    }
+
+            //});
         },
         //获取文件
         files: function () {
@@ -79,6 +92,15 @@
                 jinkai.vueSet($.page.vue.petition, "createDate", date.toLocaleDateString().replace(/\//g,"-"));
             }
         },
+        // 获得上传的文件地址信息
+        //getFiles: function () {
+        //    var filePdf = $.thisPage.getFiles();
+        //    var fileList = [];
+        //    for (var e in filePdf) {
+        //        fileList.push(filePdf[e]);
+        //    }
+        //    return JSON.stringify(fileList);
+        //},
         //保存
         save: function () {
             if (!$("#appForm").formValid()) {
@@ -91,6 +113,7 @@
                 files.push($.page.fileList[e]);
             }
             data.filePdfs = JSON.stringify(files);
+            //data.filePdfs = $.page.getFiles;
 
             var url = id == null ? requestUrl + "?action=add" : requestUrl + "?action=update";
             var title;

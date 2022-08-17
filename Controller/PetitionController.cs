@@ -72,7 +72,7 @@ namespace Controller
         {
             JObject item = new JObject();
             item["id"] = dataRow.id;
-            item["createDate"] = DateTime.Parse(dataRow.createDate).ToString("yyyy-MM-dd");
+            item["createDate"] = string.IsNullOrEmpty(dataRow.createDate) ? "" : DateTime.Parse(dataRow.createDate).ToString("yyyy-MM-dd");
             item["pName"] = dataRow.pName;
             item["pIdCard"] = dataRow.pIdCard;
             item["pAddress"] = dataRow.pAddress;
@@ -157,6 +157,15 @@ namespace Controller
         public bool Delete(string id)
         {
             return dal.Delete(id);
+        }
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <returns></returns>
+        public bool DeleteBatch(List<string> ids)
+        {
+            return dal.DeleteBatch(ids);
         }
 
         /// <summary>

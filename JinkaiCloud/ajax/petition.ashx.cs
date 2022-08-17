@@ -195,7 +195,7 @@ namespace JinkaiCloud.ajax
             }
             string filePdfs = context.Request["filePdfs"];
             PetitionController controller = new PetitionController();
-            model.status = 1;
+            model.status = 0;
             string result = controller.Add(model);
             if (!string.IsNullOrEmpty(result))
             {
@@ -212,7 +212,7 @@ namespace JinkaiCloud.ajax
             }
             else
             {
-                return JsonHelp.ErrorJson("新增通知公告失败");
+                return JsonHelp.ErrorJson("新增案件失败");
             }
 
         }
@@ -404,7 +404,7 @@ namespace JinkaiCloud.ajax
             string ext3 = context.Request["ext3"];
             string ext4 = context.Request["ext4"];
             string ext5 = context.Request["ext5"];
-            Model.Petition model = new Model.Petition();
+            Petition model = new Petition();
             if (string.IsNullOrEmpty(createDate))
             {
                 errMsg = "时间不能为空";
@@ -553,17 +553,18 @@ namespace JinkaiCloud.ajax
             PetitionController controller = new PetitionController();
 
             string[] ids = strId.Split(',');
-            string delIds = "";
-            for (int i = 0; i < ids.Length; i++)
-            {
-                delIds += ",'" + ids[i] + "'";
-            }
-            delIds = delIds.Substring(1);
+            //string delIds = "";
+            //for (int i = 0; i < ids.Length; i++)
+            //{
+            //    delIds += ",'" + ids[i] + "'";
+            //}
+            //delIds = delIds.Substring(1);
+            List<string> delIds = new List<string>(ids);
 
-            bool result = controller.Delete(delIds);
+            bool result = controller.DeleteBatch(delIds);
             if (result)
             {
-                result = new PetitionFileController().Delete(delIds);
+                result = new PetitionFileController().DeleteBatch(delIds);
                 if (result)
                 {
                     new ManagePage().AddAdminLog("删除案件信息 id:" + delIds, Constant.ActionEnum.Delete);

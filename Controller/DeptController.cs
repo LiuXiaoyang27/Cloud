@@ -140,23 +140,20 @@ namespace Controller
         /// </summary>
         /// <param name="listData">部门列表数据</param>
         /// <returns></returns>
-        public JArray ListToTreeJson(List<Dept> listData, string category)
+        public JArray ListToTreeJson(List<Dept> listData, string type = "")
         {
             JArray result = new JArray();
-            List<Dept> list = GetParentNodes(listData, category);
+            List<Dept> list = GetParentNodes(listData, type);
             JArray children = new JArray();
             JObject parent;
             //获取父节点信息
             foreach (Dept model in list)
             {
-                children = GetChilds(listData, model.ID, category);
+                children = GetChilds(listData, model.ID);
                 parent = new JObject();
                 parent["parentId"] = model.PARENTID;
                 parent["text"] = model.FULLNAME;
-                if (category == "college")
-                {
-                    parent["img"] = "fa fa-sitemap";
-                }
+                parent["img"] = "fa fa-sitemap";
                 parent["hasChildren"] = children.Count > 0 ? true : false;
                 parent["ChildNodes"] = children;
                 parent["isexpand"] = false;
@@ -173,7 +170,7 @@ namespace Controller
         /// <param name="list">部门列表数据</param>
         /// <param name="id">id</param>
         /// <returns></returns>
-        public JArray GetChilds(List<Dept> list, string ParentId, string category)
+        public JArray GetChilds(List<Dept> list, string ParentId)
         {
             JArray result = new JArray();
             foreach (Dept model in list)
@@ -181,16 +178,13 @@ namespace Controller
                 if (model.PARENTID.Equals(ParentId))
                 {
                     JObject obj = new JObject();
-                    JArray children = GetChilds(list, model.ID, category);
+                    JArray children = GetChilds(list, model.ID);
                     obj["parentId"] = model.PARENTID;
                     obj["text"] = model.FULLNAME;
-                    if (category == "college")
-                    {
-                        obj["img"] = "fa fa-sitemap";
-                    }
+                    obj["img"] = "fa fa-sitemap";
                     obj["hasChildren"] = children.Count > 0 ? true : false; ;
                     obj["ChildNodes"] = children;
-                    obj["isexpand"] = true;
+                    obj["isexpand"] = false;
                     obj["title"] = model.ENCODE;
                     obj["id"] = model.ID.ToString();
                     obj["complete"] = true;
@@ -281,11 +275,11 @@ namespace Controller
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public List<Dept> GetParentNodes(List<Dept> list, string category)
+        public List<Dept> GetParentNodes(List<Dept> list, string type)
         {
             List<Dept> result = new List<Dept>();
             Dept dept = new Dept();
-            if (category == "city")
+            if (type == "dept")
             {
                 dept.ID = "-1";
                 dept.PARENTID = "0";

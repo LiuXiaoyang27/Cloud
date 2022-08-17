@@ -76,7 +76,7 @@ namespace Business
             strSql.Append("caseName,CASECATEGORY,caseSource,channels,receiver,rerm,ext1,ext2,ext3,ext4,ext5,modifytime,status,isdelete)");
             strSql.Append(" values (");
             strSql.Append("@id,@createDate,@pName,@pIdCard,@pAddress,@caseType,@caseName,@caseCategory,@caseSource,@channels,@receiver,@rerm,");
-            strSql.Append("@ext1,@ext2,@ext3,@ext4,@ext5,@modifytime,0,0)");
+            strSql.Append("@ext1,@ext2,@ext3,@ext4,@ext5,@modifytime,@status,0)");
 
             MySqlParameter[] parameters = {
                new MySqlParameter("@id", id),
@@ -97,6 +97,7 @@ namespace Business
                new MySqlParameter("@ext4",Model.ext4),
                new MySqlParameter("@ext5",Model.ext5),
                new MySqlParameter("@modifytime",Model.modifyTime),
+               new MySqlParameter("@status",Model.status)
             };
 
             int result = SqlHelper.ExecuteSql(strSql.ToString(), parameters);
@@ -284,6 +285,33 @@ namespace Business
 
         #endregion
 
+        #region DeleteBatch:批量删除
+        public bool DeleteBatch(List<string> ids)
+        {
+            StringBuilder strSql;
+            List<CommandInfo> sqlList = new List<CommandInfo>();
+            CommandInfo cmd;
+            foreach (string id in ids)
+            {
+                strSql = new StringBuilder();
+                strSql.Append("update " + tableName + " set ");
+                strSql.Append("isdelete = 1,modifytime=Now() ");
+                strSql.Append(" where id = '"+id+"'");
+                cmd = new CommandInfo(strSql.ToString());
+                sqlList.Add(cmd);
+            }
+            int result = SqlHelper.ExecuteSqlTran(sqlList);
+            if (result > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
 
         #region GetList:获得数据列表
         /// <summary>
@@ -442,7 +470,7 @@ namespace Business
             strSql.Append("pIdCard,pAddress,status,modifyTime,CASETYPE,CASECATEGORY,CASENAME,");
             strSql.Append("CASESOURCE,CHANNELS,RECEIVER,RERM,EXT1,EXT2,EXT3,EXT4,EXT5,DATE_FORMAT( adddate(CREATEDATE,RERM), '%Y-%m-%d' ) as RERMDATE,DATEDIFF(adddate(CREATEDATE,RERM),NOW()) AS WARNING");
             strSql.Append(" FROM "+tableName);
-            strSql.Append(" where ISDELETE = 0 AND `STATUS` = 0 ");
+            strSql.Append(" where ISDELETE = 0 AND status = 0 ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(strWhere);

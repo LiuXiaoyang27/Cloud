@@ -96,10 +96,10 @@ namespace Business
             string id = Utils.GetNewGuid();
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into " + tableName + " (");
-            strSql.Append("ID,PARENTID,FULLNAME,ENCODE,SIMPLESPELLING,ENABLEDMARK,DESCRIPTION,ISDELETE,CREATORTIME,CREATORUSERID,MOBILE,TEL,CATEGORY,PROPERTYJSON,SORTCODE");
+            strSql.Append("ID,PARENTID,FULLNAME,ENCODE,SIMPLESPELLING,ENABLEDMARK,DESCRIPTION,ISDELETE,CREATORTIME,CREATORUSERID,MOBILE,TEL,SORTCODE");
             strSql.Append(") ");
             strSql.Append("values (");
-            strSql.Append("@ID,@PARENTID,@FULLNAME,@ENCODE,@SIMPLESPELLING,@ENABLEDMARK,@DESCRIPTION,@ISDELETE,now(),@CREATORUSERID,@MOBILE,@TEL,@CATEGORY,@PROPERTYJSON,");
+            strSql.Append("@ID,@PARENTID,@FULLNAME,@ENCODE,@SIMPLESPELLING,@ENABLEDMARK,@DESCRIPTION,@ISDELETE,now(),@CREATORUSERID,@MOBILE,@TEL,");
             strSql.Append("(SELECT SORTCODE FROM(SELECT IFNULL(MAX(SORTCODE) ,0) + 1 as SORTCODE FROM " + tableName + ") t1 )");
             strSql.Append(")");
             MySqlParameter[] parameters = {
@@ -114,8 +114,6 @@ namespace Business
                 new MySqlParameter("@CreatorUserId", entity.CREATORUSERID),
                 new MySqlParameter("@MOBILE", entity.MOBILE),
                 new MySqlParameter("@TEL", entity.TEL),
-                new MySqlParameter("@CATEGORY", entity.CATEGORY),
-                new MySqlParameter("@PROPERTYJSON", entity.PROPERTYJSON)
             };
             return SqlHelper.ExecuteSql(strSql.ToString(), parameters);
         }
@@ -129,7 +127,7 @@ namespace Business
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update " + tableName + " set ");
             strSql.Append("PARENTID=@PARENTID,FULLNAME=@FULLNAME,ENCODE=@ENCODE,SIMPLESPELLING=@SIMPLESPELLING,ENABLEDMARK=@ENABLEDMARK,DESCRIPTION=@DESCRIPTION,");
-            strSql.Append("LASTMODIFYTIME=now(),LASTMODIFYUSERID=@LASTMODIFYUSERID,MOBILE=@MOBILE,TEL=@TEL,PROPERTYJSON=@PROPERTYJSON");
+            strSql.Append("LASTMODIFYTIME=now(),LASTMODIFYUSERID=@LASTMODIFYUSERID,MOBILE=@MOBILE,TEL=@TEL");
             strSql.Append(" where ID = @ID");
             MySqlParameter[] parameters = {
                 new MySqlParameter("@ParentId", entity.PARENTID),
@@ -141,7 +139,6 @@ namespace Business
                 new MySqlParameter("@LastModifyUserId", entity.LASTMODIFYUSERID),
                 new MySqlParameter("@MOBILE", entity.MOBILE),
                 new MySqlParameter("@TEL", entity.TEL),
-                new MySqlParameter("@PROPERTYJSON", entity.PROPERTYJSON),
                 new MySqlParameter("@ID", entity.ID)
             };
             return SqlHelper.ExecuteSql(strSql.ToString(), parameters);

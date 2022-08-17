@@ -13,28 +13,14 @@
             $.page.resize();
         },
         toorbar: function () {
-            //新建院校
-            $("#btn_add_college").on("click", function () {
+            //新建
+            $("#btn_add").on("click", function () {
                 var right = jinkai.verifyRight($.page.module + "_Add");
                 if (right) {
                     jinkai.openSlide({
-                        title: "新增院校",// title就是打开页面的名字
-                        url: "collegeForm.html",   // url:表示打开页面的地址，这里是dept下的 form.html文件
-                        width: 580,         // 页面宽度 
-                        callBack: function (name) {
-                            window.frames[name].$.page.save();
-                        }
-                    });
-                }
-            });
-            //新建城市
-            $("#btn_add_city").on("click", function () {
-                var right = jinkai.verifyRight($.page.module + "_Add");
-                if (right) {
-                    jinkai.openSlide({
-                        title: "新增城市",
-                        url: "cityForm.html", 
-                        width: 580,      
+                        title: "新增部门",
+                        url: "form.html",
+                        width: 580,
                         callBack: function (name) {
                             window.frames[name].$.page.save();
                         }

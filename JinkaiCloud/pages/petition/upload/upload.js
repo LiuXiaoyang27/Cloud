@@ -150,7 +150,7 @@
             formData: {
                 uid: 123
             },
-            dnd: '#uploader .queueList',
+            dnd: '.queueList',
             paste: '#uploader',
             swf: '/assets/webuploader/Uploader.swf',     // swf文件路径
             chunked: false,
@@ -165,7 +165,7 @@
                 extensions: 'bmp,pdf,jpg,text,png,gif,mp4,avi,rmvb,ts,doc,xls,docx,xlsx',
                 //mimeTypes: 'image/*,audio/*,application/* '
             },
-
+            duplicate :false,
             // 禁掉全局的拖拽功能。这样不会出现文件拖进页面的时候，把文件打开。
             disableGlobalDnd: true,
             fileNumLimit: 20, // 20个
@@ -174,24 +174,25 @@
         });
 
         // 拖拽时不接受 js, txt 文件。
-        uploader.on('dndAccept', function (items) {
-            var denied = false,
-                len = items.length,
-                i = 0,
-                // 修改js类型
-                //unAllowed = 'text/plain;application/javascript ';
-                // 拖拽时不接受 js, txt 文件。 TODO
-                unAllowed = 'text/plain';
-            for (; i < len; i++) {
-                // 如果在列表里面
-                if (~unAllowed.indexOf(items[i].type)) {
-                    denied = true;
-                    break;
-                }
-            }
+        //uploader.on('dndAccept', function (items) {
+        //    debugger;
+        //    var denied = false,
+        //        len = items.length,
+        //        i = 0,
+        //        // 修改js类型
+        //        //unAllowed = 'text/plain;application/javascript ';
+        //        // 拖拽时不接受 js, txt 文件。 TODO
+        //        unAllowed = 'text/plain';
+        //    for (; i < len; i++) {
+        //        // 如果在列表里面
+        //        if (~unAllowed.indexOf(items[i].type)) {
+        //            denied = true;
+        //            break;
+        //        }
+        //    }
 
-            return !denied;
-        });
+        //    return !denied;
+        //});
 
         uploader.on('dialogOpen', function () {
             //console.log('here');
@@ -257,10 +258,9 @@
                             src = "/images/video.png";
                             break;
                     }
-
                     var $li = $('<li id="' + files[i].id + '"  data-pid="' + files[i].id + '">' +
-                                '<p class="title">' + files[i].name + '</p>' +
                                 '<p class="imgWrap"><img src="' + src + '" data="' + href + '"/></p>' +
+                                '<p class="title">' + files[i].name + '</p>' +
                                 '</li>'),
                         $btns = $('<div class="file-panel">\
                                     <span class="cancel">删除</span>\

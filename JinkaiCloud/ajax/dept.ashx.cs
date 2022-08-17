@@ -46,7 +46,7 @@ namespace JinkaiCloud.ajax
                         break;
                     // 树形结构
                     case "treeView":
-                        context.Response.Write(GetTreeView(context));
+                        context.Response.Write(GetTreeJview(context));
                         break;
                     // 信息
                     case "info":
@@ -114,34 +114,26 @@ namespace JinkaiCloud.ajax
         /// 树形结构
         /// </summary>
         /// <returns></returns>
-        public string GetTreeView(HttpContext context)
+        public string GetTreeJview(HttpContext context)
         {
-            string category = context.Request["Category"];
-            string strWhere = "";
-            if (!string.IsNullOrEmpty(category) && category.Equals("city"))
-            {
-                strWhere += " AND Category = '" + category + "'";
-            }
             DeptController controller = new DeptController();
-            //DeptBll bll = new DeptBll();
-            //DataTable data = controller.GetList("");
-            //List<Dept> list = new List<Dept>();
-            //foreach (DataRow dataRow in data.Rows)
-            //{
-            //    list.Add(bll.DataRowToModel(dataRow));
-            //}
-            List<Dept> list = controller.GetListModel(strWhere);
-            //string type = context.Request["type"];
+            DeptBll bll = new DeptBll();
+            DataTable data = controller.GetList("");
+            List<Dept> list = new List<Dept>();
+            foreach (DataRow dataRow in data.Rows)
+            {
+                list.Add(bll.DataRowToModel(dataRow));
+            }
+            string type = context.Request["type"];
 
-            //if (string.IsNullOrEmpty(type))
-            //{
-            //    type = "";
-            //}
+            if (string.IsNullOrEmpty(type))
+            {
+                type = "";
+            }
 
-            return JsonHelp.SuccessJson(controller.ListToTreeJson(list, category));
+            return JsonHelp.SuccessJson(controller.ListToTreeJson(list, type));
 
         }
-
         /// <summary>
         /// 信息
         /// </summary>
@@ -275,7 +267,7 @@ namespace JinkaiCloud.ajax
                 return JsonHelp.ErrorJson("权限不足");
             }
             DeptController controller = new DeptController();
-            Dept model;
+            Dept model = new Dept();
             string errMsg = "";
             model = GetRequestModel(context, ref errMsg);
             if (model == null)
@@ -314,9 +306,6 @@ namespace JinkaiCloud.ajax
             string description = Utils.UrlDecode(context.Request["Description"]);
             string mobile = context.Request["mobile"];
             string tel = Utils.UrlDecode(context.Request["tel"]);
-            //新添加字段
-            string category = Utils.UrlDecode(context.Request["Category"]);
-            string propertyJson = Utils.UrlDecode(context.Request["PropertyJson"]);
             string id = context.Request["id"];
             if (string.IsNullOrEmpty(parentId))
             {
@@ -336,8 +325,8 @@ namespace JinkaiCloud.ajax
                 return null;
             }
             DeptController controller = new DeptController();
-            string strCheckFullName;
-            string strCheckEnCode;
+            string strCheckFullName = "";
+            string strCheckEnCode = "";
             if (!string.IsNullOrEmpty(id))
             {
                 strCheckFullName = " FULLNAME='" + fullName + "' and ID <> '" + id + "' and PARENTID = '" + parentId + "'";
@@ -385,7 +374,6 @@ namespace JinkaiCloud.ajax
                 }
             }
 
-
             //给类赋值
             model.PARENTID = parentId;
             model.FULLNAME = fullName;
@@ -394,8 +382,6 @@ namespace JinkaiCloud.ajax
             model.ENABLEDMARK = int.Parse(enabledMark);
             model.MOBILE = mobile;
             model.TEL = tel;
-            model.CATEGORY = category;
-            model.PROPERTYJSON = propertyJson;
             return model;
 
         }

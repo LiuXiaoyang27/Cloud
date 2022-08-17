@@ -56,7 +56,7 @@ namespace Business
             strSql.Append("update " + tableName + " set ");
             strSql.Append("petitionId=@petitionId, ");
             strSql.Append("isDelete=@isDelete ");
-            strSql.Append(" where id in('" + ids + "')");
+            strSql.Append(" where id in(" + ids + ")");
             MySqlParameter[] parameters = {
                     new MySqlParameter("@petitionId", petitionId),
                     new MySqlParameter("@isDelete", isDelete)};
@@ -90,7 +90,7 @@ namespace Business
         }
 
         /// <summary>
-        /// 批量删除数据（此删除只是更新字段，使其不再显示，并没有真正的删除）
+        /// 删除一条数据（此删除只是更新字段，使其不再显示，并没有真正的删除）
         /// </summary>
         public bool Delete(string ids)
         {
@@ -108,6 +108,31 @@ namespace Business
             else
             {
                 return true;
+            }
+        }
+
+        public bool DeleteBatch(List<string> ids)
+        {
+            StringBuilder strSql;
+            List<CommandInfo> sqlList = new List<CommandInfo>();
+            CommandInfo cmd;
+            foreach (string id in ids)
+            {
+                strSql = new StringBuilder();
+                strSql.Append("update " + tableName + " set ");
+                strSql.Append("isdelete = 1 ");
+                strSql.Append(" where petitionId = '" + id + "'");
+                cmd = new CommandInfo(strSql.ToString());
+                sqlList.Add(cmd);
+            }
+            int result = SqlHelper.ExecuteSqlTran(sqlList);
+            if (result > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
