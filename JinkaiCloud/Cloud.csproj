@@ -94,6 +94,15 @@
     <Content Include="pages\oldPetition\form.js" />
     <Content Include="pages\oldPetition\list.html" />
     <Content Include="pages\oldPetition\list.js" />
+    <Content Include="pages\oldPetition\list1.html" />
+    <Content Include="pages\oldPetition\list1.js" />
+    <Content Include="pages\oldPetition\upload\bg.png" />
+    <Content Include="pages\oldPetition\upload\icons.png" />
+    <Content Include="pages\oldPetition\upload\image.png" />
+    <Content Include="pages\oldPetition\upload\progress.png" />
+    <Content Include="pages\oldPetition\upload\style.css" />
+    <Content Include="pages\oldPetition\upload\success.png" />
+    <Content Include="pages\oldPetition\upload\uploader.js" />
     <Content Include="pages\petitionRules\list.html" />
     <Content Include="pages\petitionRules\list.js" />
     <Content Include="pages\petitionRules\Preview.html" />
